@@ -7,4 +7,24 @@
         android:id="@+id/homeFragment"
         android:name="com.example.abschlussprojektscott.ui.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/taskAddFragment"
+        android:name="com.example.abschlussprojektscott.ui.TaskAddFragment"
+        android:label="TaskAddFragment" />
+    <fragment
+        android:id="@+id/taskDetailFragment"
+        android:name="com.example.abschlussprojektscott.ui.TaskDetailFragment"
+        android:label="TaskDetailFragment" />
+    <fragment
+        android:id="@+id/taskEditFragment"
+        android:name="com.example.abschlussprojektscott.ui.TaskEditFragment"
+        android:label="TaskEditFragment" />
+    <fragment
+        android:id="@+id/toDoFragment"
+        android:name="com.example.abschlussprojektscott.ui.ToDoFragment"
+        android:label="ToDoFragment" >
+        <action
+            android:id="@+id/action_toDoFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
+    </fragment>
 </navigation>

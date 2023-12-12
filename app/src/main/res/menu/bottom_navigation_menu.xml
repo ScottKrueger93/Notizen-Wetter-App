@@ -5,21 +5,27 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@android:drawable/alert_dark_frame"
-        android:title="Home" />
+        android:title="Home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <item
         android:id="@+id/addFragment"
         android:icon="@android:drawable/alert_dark_frame"
-        android:title="Add" />
+        android:title="Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <item
         android:id="@+id/editFragment"
         android:icon="@android:drawable/alert_dark_frame"
-        android:title="Edit" />
+        android:title="Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <item
         android:id="@+id/todoFragment"
         android:icon="@android:drawable/alert_dark_frame"
-        android:title="ToDo-List" />
-    <item
-        android:id="@+id/detailFragment"
-        android:icon="@android:drawable/alert_dark_frame"
-        android:title="Details" />
+        android:title="ToDo-List"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
 </menu>
