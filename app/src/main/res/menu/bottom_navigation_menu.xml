@@ -4,28 +4,22 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@android:drawable/alert_dark_frame"
-        android:title="Home"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:icon="@drawable/house"
+        android:title="Home" />
     <item
-        android:id="@+id/addFragment"
-        android:icon="@android:drawable/alert_dark_frame"
-        android:title="Add"
+        android:id="@+id/taskAddFragment"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:icon="@drawable/plus_app"
+        android:title="Add" />
     <item
-        android:id="@+id/editFragment"
-        android:icon="@android:drawable/alert_dark_frame"
-        android:title="Edit"
+        android:id="@+id/toDoFragment"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <item
-        android:id="@+id/todoFragment"
-        android:icon="@android:drawable/alert_dark_frame"
-        android:title="ToDo-List"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:icon="@drawable/note_text"
+        android:title="ToDo-List" />
 
 
 </menu>

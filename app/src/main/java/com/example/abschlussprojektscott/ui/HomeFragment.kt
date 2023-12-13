@@ -28,11 +28,7 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //binding.include.tvDescriptionItem.text = "blabla"
-
-        binding.testbutton.setOnClickListener {
-            viewModel.getWeatherResult()
-        }
+        //binding.include.ivWeatherIcon.setImageIcon()
 
     }
 

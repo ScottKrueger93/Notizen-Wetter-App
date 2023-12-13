@@ -1,17 +1,82 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_taskDetails"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/bt_delteTask"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Taskdetails"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="66dp"
+        android:backgroundTint="#1976D2"
+        android:text="Delte Task"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_taskDateEdit" />
+
+    <EditText
+        android:id="@+id/et_taskDateEdit"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_taskDescriptionEdit" />
+
+    <EditText
+        android:id="@+id/et_taskTitleEdit"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Tasktitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_titleEdit" />
+
+    <EditText
+        android:id="@+id/et_taskDescriptionEdit"
+        android:layout_width="0dp"
+        android:layout_height="146dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_taskTitleEdit" />
+
+    <Button
+        android:id="@+id/bt_editTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="#1976D2"
+        android:text="Edit Task"
+        app:layout_constraintEnd_toStartOf="@+id/bt_delteTask"
+        app:layout_constraintTop_toTopOf="@+id/bt_delteTask" />
+
+    <TextView
+        android:id="@+id/tv_titleEdit"
+        android:layout_width="0dp"
+        android:layout_height="66dp"
+        android:background="#1976D2"
+        android:gravity="center"
+        android:text="Edit Task"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Hier könnten weitere UI-Elemente für die Bearbeitung platziert werden -->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

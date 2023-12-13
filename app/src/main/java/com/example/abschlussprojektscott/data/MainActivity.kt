@@ -1,9 +1,10 @@
 package com.example.abschlussprojektscott.data
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.view.Window
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -16,6 +17,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //ändert die Farbe der StatusBar
+        window.statusBarColor = ContextCompat.getColor(this,R.color.black)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
