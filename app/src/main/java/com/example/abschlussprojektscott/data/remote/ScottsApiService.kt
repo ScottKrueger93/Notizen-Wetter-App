@@ -22,8 +22,6 @@ private val retrofit = Retrofit.Builder()
 interface ScottsApiService {
 
     //https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
-    //
-    // key=1dd7de79eba41239266b10812486bd02
 
     @GET("/data/2.5/weather")
     suspend fun getWeatherResult(

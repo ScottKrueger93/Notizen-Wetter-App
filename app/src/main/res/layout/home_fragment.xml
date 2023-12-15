@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/csm_willkommen_morganimation_adobestock_b07bcdd525" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_taskItemView"
+        android:id="@+id/cv_nextTaskItemView"
         android:layout_width="380dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -60,9 +60,9 @@
         android:layout_marginTop="16dp"
         android:background="@color/white"
         app:cardCornerRadius="25dp"
-        app:layout_constraintEnd_toEndOf="@+id/cv_taskItemView"
-        app:layout_constraintStart_toStartOf="@+id/cv_taskItemView"
-        app:layout_constraintTop_toBottomOf="@+id/cv_lastTaskView">
+        app:layout_constraintEnd_toEndOf="@+id/cv_nextTaskItemView"
+        app:layout_constraintStart_toStartOf="@+id/cv_nextTaskItemView"
+        app:layout_constraintTop_toBottomOf="@+id/cv_lastTaskItemView">
 
         <TextView
             android:id="@+id/tv_actuellTask"
@@ -75,15 +75,15 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_lastTaskView"
+        android:id="@+id/cv_lastTaskItemView"
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_marginTop="4dp"
         app:cardCornerRadius="25dp"
-        app:layout_constraintEnd_toEndOf="@+id/cv_taskItemView"
+        app:layout_constraintEnd_toEndOf="@+id/cv_nextTaskItemView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/cv_taskItemView"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        app:layout_constraintStart_toStartOf="@+id/cv_nextTaskItemView"
+        app:layout_constraintTop_toBottomOf="@+id/cv_lastTaskTv">
 
         <include
             android:id="@+id/include_lastTask"
@@ -93,14 +93,14 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cv_lastTaskTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:cardCornerRadius="25dp"
-        app:layout_constraintEnd_toEndOf="@+id/cv_lastTaskView"
+        app:layout_constraintEnd_toEndOf="@+id/cv_lastTaskItemView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/cv_lastTaskView"
+        app:layout_constraintStart_toStartOf="@+id/cv_lastTaskItemView"
         app:layout_constraintTop_toBottomOf="@+id/tv_titleHome">
 
         <TextView
