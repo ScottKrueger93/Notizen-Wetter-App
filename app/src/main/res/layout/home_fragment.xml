@@ -19,8 +19,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_nextTaskItemView"
-        android:layout_width="380dp"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
@@ -31,7 +31,7 @@
 
         <include
             android:id="@+id/include_newestTask"
-            layout="@layout/item_task"
+            layout="@layout/item_taskrv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -87,7 +87,7 @@
 
         <include
             android:id="@+id/include_lastTask"
-            layout="@layout/item_task"
+            layout="@layout/item_taskrv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
@@ -104,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_titleHome">
 
         <TextView
-            android:id="@+id/tv_welcomeMessage"
+            android:id="@+id/tv_lastTask"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"

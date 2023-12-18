@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.abschlussprojektscott.data.MainViewModel
+import com.example.abschlussprojektscott.data.adapter.ToDoAdapter
 import com.example.abschlussprojektscott.databinding.HomeFragmentBinding
 import com.example.abschlussprojektscott.databinding.TaskAddFragmentBinding
 import com.example.abschlussprojektscott.databinding.TodoFragmentBinding
@@ -22,11 +23,17 @@ class ToDoFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = TodoFragmentBinding.inflate(layoutInflater)
-        //viewModel.getWeatherResult()
+//        viewModel.getNote()
+//        viewModel.getWeatherData()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.note.observe(viewLifecycleOwner){
+            binding.rvTodo.adapter = ToDoAdapter(it, viewModel)
+        }
+
     }
 }

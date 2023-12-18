@@ -1,7 +1,7 @@
 package com.example.abschlussprojektscott.data
 
 import android.os.Bundle
-import android.view.Window
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -27,12 +27,13 @@ class MainActivity : AppCompatActivity() {
         val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         binding.bottomNavigation.setupWithNavController(navHost.navController)
 
-//        navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
-//            when (destination.id) {
-//                R.id.detailFragment -> binding.bottomNavigation.visibility = View.GONE
-//                else -> binding.bottomNavigation.visibility = View.VISIBLE
-//            }
-//        }
+        navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.taskDetailFragment -> binding.bottomNavigation.visibility = View.GONE
+                R.id.taskEditFragment -> binding.bottomNavigation.visibility = View.GONE
+                else -> binding.bottomNavigation.visibility = View.VISIBLE
+            }
+        }
 
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

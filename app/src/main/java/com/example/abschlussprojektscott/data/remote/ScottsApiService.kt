@@ -24,7 +24,7 @@ interface ScottsApiService {
     //https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
     @GET("/data/2.5/weather")
-    suspend fun getWeatherResult(
+    suspend fun getWeatherData(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("appid") key: String
