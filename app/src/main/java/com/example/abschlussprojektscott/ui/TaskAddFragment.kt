@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.abschlussprojektscott.data.MainViewModel
+import com.example.abschlussprojektscott.data.model.Note
 import com.example.abschlussprojektscott.data.model.Notes
 import com.example.abschlussprojektscott.databinding.TaskAddFragmentBinding
 
@@ -21,24 +22,27 @@ class TaskAddFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = TaskAddFragmentBinding.inflate(layoutInflater)
+        viewModel.getWeatherData()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var name = binding.etTaskTitle.text
-        var date = binding.etTaskDate.text
-        var description = binding.etTaskDescription.text
-
-
-
-        var note = Notes(id = 0, name,date,description, )
-
         binding.btAddTask.setOnClickListener {
 
+            var name = binding.etTaskTitle.text.toString()
+            var date = binding.etTaskDate.text.toString()
+            var time = binding.etTaskTime.text.toString()
+            var description = binding.etTaskDescription.text.toString()
+            var note = Note(name,date,time,description)
 
-            //viewModel.insertNote()
+            viewModel.insertNote(note)
+
+            binding.etTaskTitle.clearComposingText()
+            binding.etTaskDate.clearComposingText()
+            binding.etTaskDescription.clearComposingText()
+            binding.etTaskTime.clearComposingText()
         }
     }
 

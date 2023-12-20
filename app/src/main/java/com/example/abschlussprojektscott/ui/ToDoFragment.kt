@@ -23,15 +23,14 @@ class ToDoFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = TodoFragmentBinding.inflate(layoutInflater)
-//        viewModel.getNote()
-//        viewModel.getWeatherData()
+        viewModel.getNotes()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.note.observe(viewLifecycleOwner){
+        viewModel.notes.observe(viewLifecycleOwner){
             binding.rvTodo.adapter = ToDoAdapter(it, viewModel)
         }
 

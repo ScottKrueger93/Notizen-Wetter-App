@@ -21,7 +21,8 @@ class TaskEditFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = TaskEditFragmentBinding.inflate(layoutInflater)
-        //viewModel.getWeatherResult()
+        viewModel.getWeatherData()
+        viewModel.getNotes()
         return binding.root
     }
 

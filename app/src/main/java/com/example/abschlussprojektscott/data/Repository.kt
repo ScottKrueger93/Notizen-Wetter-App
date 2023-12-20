@@ -16,7 +16,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
     private val lon: Double = 13.4105
     private val lat: Double = 52.5244
 
-    private val _weatherData = MutableLiveData<WeatherData>()
+    private var _weatherData = MutableLiveData<WeatherData>()
         val weatherData: LiveData<WeatherData>
             get() = _weatherData
 
@@ -27,7 +27,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
             val result = api.retrofitService.getWeatherData(lat, lon, key)
             _weatherData.postValue(result)
         } catch (e: Exception) {
-            Log.e("Api", "Laden der WeatherData nicht möglich")
+            Log.e("Repository-getWeatherData", "Api could not be loaded")
         }
     }
 

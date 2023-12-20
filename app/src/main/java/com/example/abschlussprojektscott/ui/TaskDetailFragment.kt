@@ -21,7 +21,8 @@ class TaskDetailFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = TaskDetailFragmentBinding.inflate(layoutInflater)
-        //viewModel.getWeatherResult()
+        viewModel.getWeatherData()
+        viewModel.getNotes()
         return binding.root
     }
 

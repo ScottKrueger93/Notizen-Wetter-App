@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.abschlussprojektscott.data.MainViewModel
 import com.example.abschlussprojektscott.databinding.HomeFragmentBinding
-import com.example.abschlussprojektscott.databinding.ItemTaskrvBinding
+import java.util.Calendar
+import java.util.Date
 
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment() {
 
-    private lateinit var binding : HomeFragmentBinding
+    private lateinit var binding: HomeFragmentBinding
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -21,14 +22,48 @@ class HomeFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = HomeFragmentBinding.inflate(layoutInflater)
-        //viewModel.getWeatherResult()
+        viewModel.getNotes()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val currentTime: Date = Calendar.getInstance().time
 
+        viewModel.notes.observe(viewLifecycleOwner) {
+
+            if (it.isNotEmpty()) {
+                var lastTask = it.filter { it.noteDate < currentTime.toString() }
+                lastTask = lastTask.filter { it.noteTime < currentTime.toString() }
+
+                if (lastTask.isNotEmpty()) {
+                    binding.includeLastTask.tvTitlePlaceHolder.text = lastTask[0].noteName
+                    binding.includeLastTask.tvDatePlaceholder.text = lastTask[0].noteDate
+                    binding.includeLastTask.tvTimePlaceholder.text = lastTask[0].noteTime
+                    binding.includeLastTask.tvDescriptionPlaceholder.text =
+                        lastTask[0].noteDescription
+                    binding.includeLastTask.tvWeather.text = lastTask[0].weatherName
+                    binding.includeLastTask.tvWeatherDescription.text =
+                        lastTask[0].weatherDescription
+                    //binding.includeLastTask.ivWeatherIcon.setImageIcon(lastTask[0].weatherIcon)
+                }
+
+                var nextTask = it.filter { it.noteDate > currentTime.toString() }
+                nextTask = nextTask.filter { it.noteTime > currentTime.toString() }
+
+                if (nextTask.isNotEmpty()) {
+                    binding.includeNewestTask.tvTitlePlaceHolder.text = nextTask[0].noteName
+                    binding.includeNewestTask.tvDescriptionPlaceholder.text =
+                        nextTask[0].noteDescription
+                    binding.includeNewestTask.tvDatePlaceholder.text = nextTask[0].noteDate
+                    binding.includeNewestTask.tvTimePlaceholder.text = nextTask[0].noteTime
+                    binding.includeNewestTask.tvWeather.text = nextTask[0].weatherName
+                    binding.includeNewestTask.tvWeatherDescription.text =
+                        nextTask[0].weatherDescription
+                    //binding.includeNewestTask.ivWeatherIcon.setImageIcon(nextTask[0].weatherIcon)
+                }
+            }
+        }
     }
-
 }

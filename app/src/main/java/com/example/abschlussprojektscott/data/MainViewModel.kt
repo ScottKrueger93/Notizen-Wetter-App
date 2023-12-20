@@ -5,7 +5,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.abschlussprojektscott.data.local.getDatabase
+import com.example.abschlussprojektscott.data.local.NoteDatabase.Companion.getDatabase
+import com.example.abschlussprojektscott.data.model.Note
 import com.example.abschlussprojektscott.data.model.Notes
 import com.example.abschlussprojektscott.data.model.Weather
 import com.example.abschlussprojektscott.data.model.WeatherData
@@ -17,35 +18,45 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val database = getDatabase(application)
     private val repo = Repository(ScottsApi, database)
 
-    val note = repo.notes
-    val weather = repo.weatherData
+    val notes = repo.notes
+    val weatherData = repo.weatherData
 
     fun getWeatherData() {
         viewModelScope.launch {
-            repo.getWeatherData()
+            try {
+                repo.getWeatherData()
+            } catch (e: Exception) {
+                Log.e("MainViewModel-getWeatherData", "could not load WeatherData")
+            }
+
         }
     }
 
-    fun getNote() {
-        viewModelScope.launch {
-            repo.getNotes()
-        }
-    }
-
-    fun insertNote(notes: Notes) {
+    fun getNotes() {
         viewModelScope.launch {
             try {
-                val note = Notes(
-                    noteName = notes.noteName,
-                    noteDate = notes.noteDate,
-                    noteDescription = notes.noteDescription,
+                repo.getNotes()
+            } catch (e: Exception) {
+                Log.e("MainViewModel-getNotes", "could")
+            }
 
+        }
+    }
 
-                    weatherName = weather.value.weather.first().main,
-                    weatherDescription = weather.description,
-                    weatherIcon = weather.icon,
+    fun insertNote(note: Note) {
+        viewModelScope.launch {
+            try {
+                val notes = Notes(
+                    noteName = note.name,
+                    noteDate = note.date,
+                    noteTime = note.time,
+                    noteDescription = note.description,
+
+                    weatherName = weatherData.value?.weather?.first()!!.main,
+                    weatherDescription = weatherData.value?.weather?.first()!!.description,
+                    weatherIcon = weatherData.value?.weather?.first()!!.icon,
                 )
-                repo.insertNote(note)
+                repo.insertNote(notes)
             } catch (e: Exception) {
                 Log.e("MainViewModel-insertNote", "Note could not be added")
             }
@@ -54,7 +65,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun deleteNote(notes: Notes) {
         viewModelScope.launch {
-            repo.deleteNote(notes)
+            try {
+                repo.deleteNote(notes)
+            } catch (e: Exception) {
+                Log.e("MainViewModel-deleteNote", "")
+            }
+
         }
     }
 

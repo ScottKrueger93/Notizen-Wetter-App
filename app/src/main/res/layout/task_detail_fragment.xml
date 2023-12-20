@@ -61,9 +61,24 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="Date"
-        android:text="Fälligkeitsdatum: 12. Dezember 2023"
+        android:text="Date: 12 December 2023"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
+
+    <TextView
+        android:id="@+id/tv_taskTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Time"
+        android:text="Time: 08:50 pm."
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
 
