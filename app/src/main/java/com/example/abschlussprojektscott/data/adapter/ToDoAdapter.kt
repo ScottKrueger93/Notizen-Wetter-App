@@ -25,12 +25,12 @@ class ToDoAdapter(
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val item = dataset[position]
 
-//        holder.binding.tvTitlePlaceHolder.text = item.noteName
-//        holder.binding.tvDescriptionPlaceholder.text = item.noteDescription
-//        holder.binding.tvDatePlaceholder.text = item.noteDate
-//        //holder.binding.ivWeatherIcon.setImageIcon(item.weatherIcon)
-//        holder.binding.tvWeather.text = item.weatherName
-//        holder.binding.tvWeatherDescription.text = item.weatherDescription
+        holder.binding.tvTitlePlaceHolder.text = item.noteName
+        holder.binding.tvDescriptionPlaceholder.text = item.noteDescription
+        holder.binding.tvDatePlaceholder.text = item.noteDate
+        //holder.binding.ivWeatherIcon.setImageIcon(item.weatherIcon)
+        holder.binding.tvWeather.text = item.weatherName
+        holder.binding.tvWeatherDescription.text = item.weatherDescription
 
     }
 

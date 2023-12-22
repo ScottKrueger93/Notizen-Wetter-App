@@ -47,6 +47,8 @@ class HomeFragment : Fragment() {
                     binding.includeLastTask.tvWeatherDescription.text =
                         lastTask[0].weatherDescription
                     //binding.includeLastTask.ivWeatherIcon.setImageIcon(lastTask[0].weatherIcon)
+                } else {
+                    binding.includeLastTask.cvItem.visibility = View.GONE
                 }
 
                 var nextTask = it.filter { it.noteDate > currentTime.toString() }
@@ -62,7 +64,12 @@ class HomeFragment : Fragment() {
                     binding.includeNewestTask.tvWeatherDescription.text =
                         nextTask[0].weatherDescription
                     //binding.includeNewestTask.ivWeatherIcon.setImageIcon(nextTask[0].weatherIcon)
+                } else {
+                    binding.includeNewestTask.cvItem.visibility = View.GONE
                 }
+            } else {
+                binding.includeLastTask.cvItem.visibility = View.GONE
+                binding.includeNewestTask.cvItem.visibility = View.GONE
             }
         }
     }

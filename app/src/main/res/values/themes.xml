@@ -6,6 +6,7 @@
 
     <style name="Theme.AbschlussprojektScott" parent="Base.Theme.AbschlussprojektScott" />
 
+    //Hintergrund des Aktiven Icon in der Bottom Navigation Bar wird auf weiß gesetzt
     <style name="activeIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/white</item>
     </style>

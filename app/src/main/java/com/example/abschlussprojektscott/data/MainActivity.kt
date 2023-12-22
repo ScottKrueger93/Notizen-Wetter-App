@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //ändert die Farbe der StatusBar
+        //ändert die Farbe der StatusBar auf Schwarz
         window.statusBarColor = ContextCompat.getColor(this,R.color.black)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
