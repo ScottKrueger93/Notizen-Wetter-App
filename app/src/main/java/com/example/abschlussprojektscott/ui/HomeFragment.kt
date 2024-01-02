@@ -6,7 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import coil.load
 import com.example.abschlussprojektscott.data.MainViewModel
+import com.example.abschlussprojektscott.data.remote.BASE_URL
+import com.example.abschlussprojektscott.data.remote.IMG_URL
+import com.example.abschlussprojektscott.data.remote.IMG_URL_LAST
 import com.example.abschlussprojektscott.databinding.HomeFragmentBinding
 import java.util.Calendar
 import java.util.Date
@@ -47,6 +51,7 @@ class HomeFragment : Fragment() {
                     binding.includeLastTask.tvWeatherDescription.text =
                         lastTask[0].weatherDescription
                     //binding.includeLastTask.ivWeatherIcon.setImageIcon(lastTask[0].weatherIcon)
+                    binding.includeNewestTask.ivWeatherIcon.load(BASE_URL + IMG_URL + lastTask[0].weatherIcon + IMG_URL_LAST)
                 } else {
                     binding.includeLastTask.cvItem.visibility = View.GONE
                 }
@@ -63,7 +68,8 @@ class HomeFragment : Fragment() {
                     binding.includeNewestTask.tvWeather.text = nextTask[0].weatherName
                     binding.includeNewestTask.tvWeatherDescription.text =
                         nextTask[0].weatherDescription
-                    //binding.includeNewestTask.ivWeatherIcon.setImageIcon(nextTask[0].weatherIcon)
+                    //binding.includeLastTask.ivWeatherIcon.setImageIcon(lastTask[0].weatherIcon)
+                    binding.includeNewestTask.ivWeatherIcon.load(BASE_URL + IMG_URL + nextTask[0].weatherIcon + IMG_URL_LAST)
                 } else {
                     binding.includeNewestTask.cvItem.visibility = View.GONE
                 }
