@@ -104,7 +104,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_weather"
+                    android:id="@+id/tv_weatherInformation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
@@ -115,7 +115,7 @@
 
                 <ImageView
                     android:id="@+id/iv_weatherIcon"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"

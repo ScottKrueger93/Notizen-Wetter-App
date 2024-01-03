@@ -1,17 +1,21 @@
 package com.example.abschlussprojektscott.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import coil.load
 import com.example.abschlussprojektscott.data.MainViewModel
-import com.example.abschlussprojektscott.data.remote.BASE_URL
-import com.example.abschlussprojektscott.data.remote.IMG_URL
+import com.example.abschlussprojektscott.data.remote.IMAGE_BASE_URL
 import com.example.abschlussprojektscott.data.remote.IMG_URL_LAST
 import com.example.abschlussprojektscott.databinding.HomeFragmentBinding
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Date
 
@@ -27,49 +31,49 @@ class HomeFragment : Fragment() {
     ): View {
         binding = HomeFragmentBinding.inflate(layoutInflater)
         viewModel.getNotes()
+        viewModel.getWeatherData()
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val currentTime: Date = Calendar.getInstance().time
 
         viewModel.notes.observe(viewLifecycleOwner) {
 
             if (it.isNotEmpty()) {
-                var lastTask = it.filter { it.noteDate < currentTime.toString() }
-                lastTask = lastTask.filter { it.noteTime < currentTime.toString() }
+                val currentLocalDateTime = LocalDateTime.now()
 
-                if (lastTask.isNotEmpty()) {
-                    binding.includeLastTask.tvTitlePlaceHolder.text = lastTask[0].noteName
-                    binding.includeLastTask.tvDatePlaceholder.text = lastTask[0].noteDate
-                    binding.includeLastTask.tvTimePlaceholder.text = lastTask[0].noteTime
+                var lastTasks =
+                    it.filter { parseDateTime(it.noteDate + " " + it.noteTime) <= currentLocalDateTime }
+
+                if (lastTasks.isNotEmpty()) {
+                    binding.includeLastTask.tvTitlePlaceHolder.text = lastTasks[0].noteName
+                    binding.includeLastTask.tvDatePlaceholder.text = lastTasks[0].noteDate
+                    binding.includeLastTask.tvTimePlaceholder.text = lastTasks[0].noteTime
                     binding.includeLastTask.tvDescriptionPlaceholder.text =
-                        lastTask[0].noteDescription
-                    binding.includeLastTask.tvWeather.text = lastTask[0].weatherName
+                        lastTasks[0].noteDescription
+                    binding.includeLastTask.tvWeather.text = lastTasks[0].weatherName
                     binding.includeLastTask.tvWeatherDescription.text =
-                        lastTask[0].weatherDescription
-                    //binding.includeLastTask.ivWeatherIcon.setImageIcon(lastTask[0].weatherIcon)
-                    binding.includeNewestTask.ivWeatherIcon.load(BASE_URL + IMG_URL + lastTask[0].weatherIcon + IMG_URL_LAST)
+                        lastTasks[0].weatherDescription
+                    binding.includeLastTask.ivWeatherIcon.load(IMAGE_BASE_URL + lastTasks[0].weatherIcon + IMG_URL_LAST)
                 } else {
                     binding.includeLastTask.cvItem.visibility = View.GONE
                 }
 
-                var nextTask = it.filter { it.noteDate > currentTime.toString() }
-                nextTask = nextTask.filter { it.noteTime > currentTime.toString() }
+                var nextTask =
+                    it.filter { parseDateTime(it.noteDate + " " + it.noteTime) > currentLocalDateTime }
 
                 if (nextTask.isNotEmpty()) {
                     binding.includeNewestTask.tvTitlePlaceHolder.text = nextTask[0].noteName
-                    binding.includeNewestTask.tvDescriptionPlaceholder.text =
-                        nextTask[0].noteDescription
                     binding.includeNewestTask.tvDatePlaceholder.text = nextTask[0].noteDate
                     binding.includeNewestTask.tvTimePlaceholder.text = nextTask[0].noteTime
+                    binding.includeNewestTask.tvDescriptionPlaceholder.text =
+                        nextTask[0].noteDescription
                     binding.includeNewestTask.tvWeather.text = nextTask[0].weatherName
                     binding.includeNewestTask.tvWeatherDescription.text =
                         nextTask[0].weatherDescription
-                    //binding.includeLastTask.ivWeatherIcon.setImageIcon(lastTask[0].weatherIcon)
-                    binding.includeNewestTask.ivWeatherIcon.load(BASE_URL + IMG_URL + nextTask[0].weatherIcon + IMG_URL_LAST)
+                    binding.includeNewestTask.ivWeatherIcon.load(IMAGE_BASE_URL + nextTask[0].weatherIcon + IMG_URL_LAST)
                 } else {
                     binding.includeNewestTask.cvItem.visibility = View.GONE
                 }
@@ -78,5 +82,34 @@ class HomeFragment : Fragment() {
                 binding.includeNewestTask.cvItem.visibility = View.GONE
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun parseDateTime(dateTimeString: String): LocalDateTime {
+        val patterns = arrayOf(
+            "dd.MM.yyyy HH:mm",
+            "dd.MM.yyyy H:mm",
+            "dd.MM.yyyy HH:mm:ss",
+            "dd.MM.yyyy H:mm:ss",
+            "yyyy-MM-dd HH:mm",
+            "yyyy-MM-dd H:mm",
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd H:mm:ss",
+            "MM/dd/yyyy HH:mm",
+            "MM/dd/yyyy H:mm",
+            "MM/dd/yyyy HH:mm:ss",
+            "MM/dd/yyyy H:mm:ss",
+        )
+
+        for (pattern in patterns) {
+            try {
+                return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(pattern))
+            } catch (e: DateTimeParseException) {
+                // Ignorieren und mit dem nächsten Muster versuchen
+            }
+        }
+
+        // Standardwert, wenn keine der Formate passt (könnte eine Ausnahmebehandlung oder ein anderer Standardwert sein)
+        return LocalDateTime.now()
     }
 }

@@ -9,8 +9,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 const val BASE_URL = "https://api.openweathermap.org"
-const val IMG_URL = "/img/wn/"
-const val IMG_URL_LAST = "@2x.png"
+const val IMAGE_BASE_URL = "https://openweathermap.org/img/wn/"
+const val IMG_URL_LAST = "@4x.png"
 
 
 private val moshi = Moshi.Builder()
