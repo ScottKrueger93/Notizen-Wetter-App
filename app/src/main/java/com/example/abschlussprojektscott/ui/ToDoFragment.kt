@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.abschlussprojektscott.data.MainViewModel
 import com.example.abschlussprojektscott.data.adapter.ToDoAdapter
 import com.example.abschlussprojektscott.databinding.HomeFragmentBinding

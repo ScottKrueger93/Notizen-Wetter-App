@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abschlussprojektscott.data.local.NoteDatabase.Companion.getDatabase
 import com.example.abschlussprojektscott.data.model.Note
@@ -17,9 +18,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = getDatabase(application)
     private val repo = Repository(ScottsApi, database)
+    val selectedNote = repo.selectedNote
 
     val notes = repo.notes
     val weatherData = repo.weatherData
+
+    fun getSelectedNoteById(id: Long){
+        viewModelScope.launch {
+            repo.getSelectedNoteById(id)
+        }
+    }
 
     fun getWeatherData() {
         viewModelScope.launch {
@@ -28,7 +36,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             } catch (e: Exception) {
                 Log.e("MainViewModel-getWeatherData", "could not load WeatherData")
             }
-
         }
     }
 
@@ -39,7 +46,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             } catch (e: Exception) {
                 Log.e("MainViewModel-getNotes", "could")
             }
-
         }
     }
 
@@ -70,7 +76,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             } catch (e: Exception) {
                 Log.e("MainViewModel-deleteNote", "")
             }
-
         }
     }
 

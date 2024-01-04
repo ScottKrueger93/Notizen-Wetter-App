@@ -19,6 +19,7 @@ interface ScottsDatabaseDao {
     @Delete
     suspend fun deleteNote(notes: Notes)
 
-
+    @Query("SELECT * FROM note_table WHERE id = :id")
+    suspend fun getSelectedNoteById(id: Long): Notes
 
 }

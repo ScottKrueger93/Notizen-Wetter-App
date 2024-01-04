@@ -6,20 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import coil.load
 import com.example.abschlussprojektscott.data.MainViewModel
+import com.example.abschlussprojektscott.data.remote.IMAGE_BASE_URL
+import com.example.abschlussprojektscott.data.remote.IMG_URL_LAST
 import com.example.abschlussprojektscott.databinding.TaskAddFragmentBinding
 import com.example.abschlussprojektscott.databinding.TaskDetailFragmentBinding
 
-class TaskDetailFragment: Fragment() {
+class TaskDetailFragment : Fragment() {
 
-    private lateinit var binding : TaskDetailFragmentBinding
+    private lateinit var binding: TaskDetailFragmentBinding
     private val viewModel: MainViewModel by activityViewModels()
+
+    private var notesId: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        arguments?.let { bundle ->
+            val args = TaskDetailFragmentArgs.fromBundle(bundle)
+            notesId = args.notesId
+        }
         binding = TaskDetailFragmentBinding.inflate(layoutInflater)
         viewModel.getWeatherData()
         viewModel.getNotes()
@@ -28,5 +37,19 @@ class TaskDetailFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getSelectedNoteById(notesId)
+
+        viewModel.selectedNote.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.tvTaskTitleItem.text = it.noteName
+                binding.tvTaskDescription.text = it.noteDescription
+                binding.tvTaskDueDate.text = it.noteDate
+                binding.tvTaskTime.text = it.noteTime
+                binding.tvWeather.text = it.weatherName
+                binding.tvWeatherDescription.text = it.weatherDescription
+                binding.ivWeatherIcon.load(IMAGE_BASE_URL + it.weatherIcon + IMG_URL_LAST)
+            }
+        }
     }
 }

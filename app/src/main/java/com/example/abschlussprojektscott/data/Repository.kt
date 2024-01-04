@@ -22,6 +22,18 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
 
     var notes: LiveData<MutableList<Notes>> = database.noteDao.getAll()
 
+    private val _selectedNote = MutableLiveData<Notes>()
+    val selectedNote: LiveData<Notes>
+        get() = _selectedNote
+
+    suspend fun getSelectedNoteById(id: Long) {
+        try {
+            _selectedNote.value = database.noteDao.getSelectedNoteById(id)
+        } catch (e: Exception) {
+            Log.e("Repository", e.toString())
+        }
+    }
+
     suspend fun getWeatherData() {
         try {
             val result = api.retrofitService.getWeatherData(lat, lon, key)

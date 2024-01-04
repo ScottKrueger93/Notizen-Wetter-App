@@ -14,7 +14,12 @@
     <fragment
         android:id="@+id/taskDetailFragment"
         android:name="com.example.abschlussprojektscott.ui.TaskDetailFragment"
-        android:label="taskDetailFragment" />
+        android:label="taskDetailFragment" >
+        <argument
+            android:name="notesId"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
     <fragment
         android:id="@+id/taskEditFragment"
         android:name="com.example.abschlussprojektscott.ui.TaskEditFragment"
@@ -30,4 +35,8 @@
             android:id="@+id/action_toDoFragment_to_taskEditFragment"
             app:destination="@id/taskEditFragment" />
     </fragment>
+    <argument
+        android:name="taskID"
+        app:argType="long"
+        android:defaultValue="0L" />
 </navigation>
