@@ -16,8 +16,8 @@ interface ScottsDatabaseDao {
     @Query("SELECT * FROM note_table")
     fun getAll(): LiveData<MutableList<Notes>>
 
-    @Delete
-    suspend fun deleteNote(notes: Notes)
+    @Query("DELETE FROM note_table WHERE id = :noteId")
+    suspend fun deleteNoteById(noteId: Long)
 
     @Query("SELECT * FROM note_table WHERE id = :id")
     suspend fun getSelectedNoteById(id: Long): Notes

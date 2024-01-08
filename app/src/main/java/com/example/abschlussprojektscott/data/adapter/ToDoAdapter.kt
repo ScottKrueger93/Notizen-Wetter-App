@@ -9,7 +9,6 @@ import com.example.abschlussprojektscott.data.MainViewModel
 import com.example.abschlussprojektscott.data.model.Notes
 import com.example.abschlussprojektscott.data.remote.IMAGE_BASE_URL
 import com.example.abschlussprojektscott.data.remote.IMG_URL_LAST
-import com.example.abschlussprojektscott.databinding.ItemTaskrvBinding
 import com.example.abschlussprojektscott.databinding.ItemTasktodoBinding
 import com.example.abschlussprojektscott.ui.ToDoFragmentDirections
 

@@ -23,7 +23,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val notes = repo.notes
     val weatherData = repo.weatherData
 
-    fun getSelectedNoteById(id: Long){
+    fun getSelectedNoteById(id: Long) {
         viewModelScope.launch {
             repo.getSelectedNoteById(id)
         }
@@ -69,12 +69,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun deleteNote(notes: Notes) {
+    fun deleteNote(notes: Long) {
         viewModelScope.launch {
             try {
-                repo.deleteNote(notes)
+                repo.deleteNoteById(notes)
             } catch (e: Exception) {
-                Log.e("MainViewModel-deleteNote", "")
+                Log.e("MainViewModel-deleteNote", "Note could not be deleted")
             }
         }
     }

@@ -17,8 +17,8 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
     private val lat: Double = 52.5244
 
     private var _weatherData = MutableLiveData<WeatherData>()
-        val weatherData: LiveData<WeatherData>
-            get() = _weatherData
+    val weatherData: LiveData<WeatherData>
+        get() = _weatherData
 
     var notes: LiveData<MutableList<Notes>> = database.noteDao.getAll()
 
@@ -59,9 +59,9 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
         }
     }
 
-    suspend fun deleteNote(note: Notes) {
+    suspend fun deleteNoteById(note: Long) {
         try {
-            database.noteDao.deleteNote(note)
+            database.noteDao.deleteNoteById(note)
         } catch (e: Exception) {
             Log.e("Repository-Delete", "Note could not be deleted")
         }

@@ -10,9 +10,9 @@ import com.example.abschlussprojektscott.data.MainViewModel
 import com.example.abschlussprojektscott.data.model.Note
 import com.example.abschlussprojektscott.databinding.TaskAddFragmentBinding
 
-class TaskAddFragment: Fragment() {
+class TaskAddFragment : Fragment() {
 
-    private lateinit var binding : TaskAddFragmentBinding
+    private lateinit var binding: TaskAddFragmentBinding
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -34,7 +34,7 @@ class TaskAddFragment: Fragment() {
             var date = binding.etTaskDate.text.toString()
             var time = binding.etTaskTime.text.toString()
             var description = binding.etTaskDescription.text.toString()
-            var note = Note(name,date,time,description)
+            var note = Note(name, date, time, description)
 
             viewModel.insertNote(note)
 

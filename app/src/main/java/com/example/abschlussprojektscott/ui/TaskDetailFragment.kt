@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.abschlussprojektscott.data.MainViewModel
 import com.example.abschlussprojektscott.data.remote.IMAGE_BASE_URL
@@ -51,5 +52,14 @@ class TaskDetailFragment : Fragment() {
                 binding.ivWeatherIcon.load(IMAGE_BASE_URL + it.weatherIcon + IMG_URL_LAST)
             }
         }
+
+        binding.btEdit.setOnClickListener {
+            findNavController().navigate(
+                TaskDetailFragmentDirections.actionTaskDetailFragmentToTaskEditFragment(
+                    it.id.toLong()
+                )
+            )
+        }
+
     }
 }

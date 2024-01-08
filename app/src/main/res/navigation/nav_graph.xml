@@ -19,11 +19,21 @@
             android:name="notesId"
             app:argType="long"
             android:defaultValue="0L" />
+        <action
+            android:id="@+id/action_taskDetailFragment_to_taskEditFragment"
+            app:destination="@id/taskEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/taskEditFragment"
         android:name="com.example.abschlussprojektscott.ui.TaskEditFragment"
-        android:label="taskEditFragment" />
+        android:label="taskEditFragment" >
+        <argument
+            android:name="detailNoteId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_taskEditFragment_to_toDoFragment"
+            app:destination="@id/toDoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/toDoFragment"
         android:name="com.example.abschlussprojektscott.ui.ToDoFragment"
@@ -31,9 +41,6 @@
         <action
             android:id="@+id/action_toDoFragment_to_taskDetailFragment"
             app:destination="@id/taskDetailFragment" />
-        <action
-            android:id="@+id/action_toDoFragment_to_taskEditFragment"
-            app:destination="@id/taskEditFragment" />
     </fragment>
     <argument
         android:name="taskID"
