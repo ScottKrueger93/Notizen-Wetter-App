@@ -51,6 +51,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
         }
     }
 
+
     suspend fun insertNote(note: Notes) {
         try {
             database.noteDao.insertNote(note)
@@ -59,13 +60,14 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
         }
     }
 
-    suspend fun deleteNoteById(note: Long) {
+    suspend fun deleteNoteById(noteId: Long) {
         try {
-            database.noteDao.deleteNoteById(note)
+            Log.d("Repository-Delete", "Deleting note with ID: $noteId")
+            database.noteDao.deleteNoteById(noteId)
+            Log.d("Repository-Delete", "Note deleted successfully")
         } catch (e: Exception) {
-            Log.e("Repository-Delete", "Note could not be deleted")
+            Log.e("Repository-Delete", "Note could not be deleted: ${e.message}")
         }
     }
-
 
 }

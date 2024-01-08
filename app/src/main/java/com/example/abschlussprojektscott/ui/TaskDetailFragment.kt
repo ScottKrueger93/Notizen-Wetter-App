@@ -56,7 +56,7 @@ class TaskDetailFragment : Fragment() {
         binding.btEdit.setOnClickListener {
             findNavController().navigate(
                 TaskDetailFragmentDirections.actionTaskDetailFragmentToTaskEditFragment(
-                    it.id.toLong()
+                    notesId
                 )
             )
         }

@@ -1,6 +1,7 @@
 package com.example.abschlussprojektscott.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ class TaskEditFragment: Fragment() {
         arguments?.let { bundle ->
             val args = TaskEditFragmentArgs.fromBundle(bundle)
             noteId = args.detailNoteId
+            Log.d("TaskEditFragment", "Received noteId: $noteId")
         }
         binding = TaskEditFragmentBinding.inflate(layoutInflater)
         viewModel.getWeatherData()
@@ -36,20 +38,17 @@ class TaskEditFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.selectedNote.observe(viewLifecycleOwner){
+        viewModel.selectedNote.observe(viewLifecycleOwner) {
             binding.etTaskTitleEdit.setText(it.noteName)
             binding.etTaskDescriptionEdit.setText(it.noteDescription)
             binding.etTaskDateEdit.setText(it.noteDate)
             binding.etTaskTimeEdit.setText(it.noteTime)
-        }
 
-        viewModel.notes.observe(viewLifecycleOwner){
             binding.btDeleteTask.setOnClickListener {
-                //TODO: delete funktioniert nicht
-                viewModel.deleteNote(noteId)
+                Log.d("TaskEditFragment", "Deleting note with ID: $noteId")
+                viewModel.deleteNoteById(noteId)
                 findNavController().navigate(TaskEditFragmentDirections.actionTaskEditFragmentToToDoFragment())
             }
         }
     }
-
 }

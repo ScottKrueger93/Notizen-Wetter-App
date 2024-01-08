@@ -69,7 +69,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun deleteNote(notes: Long) {
+    fun deleteNoteById(notes: Long) {
         viewModelScope.launch {
             try {
                 repo.deleteNoteById(notes)
