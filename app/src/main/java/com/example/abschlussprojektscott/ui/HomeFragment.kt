@@ -2,6 +2,7 @@ package com.example.abschlussprojektscott.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.text.method.TextKeyListener.clear
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,9 +40,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.notes.observe(viewLifecycleOwner) {
-
-            if (it.isNotEmpty()) {
+        viewModel.notes.observe(viewLifecycleOwner) { notes ->
+            notes?.let {
                 val currentLocalDateTime = LocalDateTime.now()
 
                 var lastTasks =
@@ -77,9 +77,6 @@ class HomeFragment : Fragment() {
                 } else {
                     binding.includeNewestTask.cvItem.visibility = View.GONE
                 }
-            } else {
-                binding.includeLastTask.cvItem.visibility = View.GONE
-                binding.includeNewestTask.cvItem.visibility = View.GONE
             }
         }
     }

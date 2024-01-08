@@ -35,6 +35,7 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
                     android:text="Tasktitle"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Description"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/tv_taskTitleItem"
                     app:layout_constraintTop_toBottomOf="@+id/tv_titlePlaceHolder" />
 
@@ -71,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Date of Task"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/tv_descriptionPlaceholder"
                     app:layout_constraintTop_toBottomOf="@+id/tv_descriptionPlaceholder" />
 
@@ -110,6 +113,7 @@
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="32dp"
                     android:text="Weather Information:"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

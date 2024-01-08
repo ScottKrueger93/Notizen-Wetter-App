@@ -42,7 +42,7 @@ class TaskDetailFragment : Fragment() {
 
         viewModel.selectedNote.observe(viewLifecycleOwner) {
             if (it != null) {
-                binding.tvTaskTitleItem.text = it.noteName
+                binding.tvTaskTitle.text = it.noteName
                 binding.tvTaskDescription.text = it.noteDescription
                 binding.tvTaskDueDate.text = it.noteDate
                 binding.tvTaskTime.text = it.noteTime
