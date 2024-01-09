@@ -31,7 +31,6 @@ class TaskAddFragment : Fragment() {
         viewModel.notes.observe(viewLifecycleOwner) {
 
             binding.btAddTask.setOnClickListener {
-
                 var name = binding.etTaskTitle.text.toString()
                 var date = binding.etTaskDate.text.toString()
                 var time = binding.etTaskTime.text.toString()

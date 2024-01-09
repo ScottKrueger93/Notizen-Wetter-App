@@ -46,23 +46,26 @@ class HomeFragment : Fragment() {
 
                 var lastTasks =
                     it.filter { parseDateTime(it.noteDate + " " + it.noteTime) <= currentLocalDateTime }
+                        .sortedBy { parseDateTime(it.noteDate + " " + it.noteTime) }
+
 
                 if (lastTasks.isNotEmpty()) {
-                    binding.includeLastTask.tvTitlePlaceHolder.text = lastTasks[0].noteName
-                    binding.includeLastTask.tvDatePlaceholder.text = lastTasks[0].noteDate
-                    binding.includeLastTask.tvTimePlaceholder.text = lastTasks[0].noteTime
+                    binding.includeLastTask.tvTitlePlaceHolder.text = lastTasks.last().noteName
+                    binding.includeLastTask.tvDatePlaceholder.text = lastTasks.last().noteDate
+                    binding.includeLastTask.tvTimePlaceholder.text = lastTasks.last().noteTime
                     binding.includeLastTask.tvDescriptionPlaceholder.text =
-                        lastTasks[0].noteDescription
-                    binding.includeLastTask.tvWeather.text = lastTasks[0].weatherName
+                        lastTasks.last().noteDescription
+                    binding.includeLastTask.tvWeather.text = lastTasks.last().weatherName
                     binding.includeLastTask.tvWeatherDescription.text =
-                        lastTasks[0].weatherDescription
-                    binding.includeLastTask.ivWeatherIcon.load(IMAGE_BASE_URL + lastTasks[0].weatherIcon + IMG_URL_LAST)
+                        lastTasks.last().weatherDescription
+                    binding.includeLastTask.ivWeatherIcon.load(IMAGE_BASE_URL + lastTasks.last().weatherIcon + IMG_URL_LAST)
                 } else {
                     binding.includeLastTask.cvItem.visibility = View.GONE
                 }
 
                 var nextTask =
                     it.filter { parseDateTime(it.noteDate + " " + it.noteTime) > currentLocalDateTime }
+                        .sortedBy { parseDateTime(it.noteDate + " " + it.noteTime) }
 
                 if (nextTask.isNotEmpty()) {
                     binding.includeNewestTask.tvTitlePlaceHolder.text = nextTask[0].noteName
