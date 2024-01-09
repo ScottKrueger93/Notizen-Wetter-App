@@ -28,20 +28,28 @@ class TaskAddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btAddTask.setOnClickListener {
+        viewModel.notes.observe(viewLifecycleOwner) {
 
-            var name = binding.etTaskTitle.text.toString()
-            var date = binding.etTaskDate.text.toString()
-            var time = binding.etTaskTime.text.toString()
-            var description = binding.etTaskDescription.text.toString()
-            var note = Note(name, date, time, description)
+            binding.btAddTask.setOnClickListener {
 
-            viewModel.insertNote(note)
+                var name = binding.etTaskTitle.text.toString()
+                var date = binding.etTaskDate.text.toString()
+                var time = binding.etTaskTime.text.toString()
+                var description = binding.etTaskDescription.text.toString()
+                var note = Note(
+                    name = name,
+                    date = date,
+                    time = time,
+                    description = description
+                )
 
-            binding.etTaskTitle.text.clear()
-            binding.etTaskDate.text.clear()
-            binding.etTaskDescription.text.clear()
-            binding.etTaskTime.text.clear()
+                viewModel.insertNote(note)
+
+                binding.etTaskTitle.text.clear()
+                binding.etTaskDate.text.clear()
+                binding.etTaskDescription.text.clear()
+                binding.etTaskTime.text.clear()
+            }
         }
     }
 

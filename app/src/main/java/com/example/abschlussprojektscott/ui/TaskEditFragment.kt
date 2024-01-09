@@ -9,12 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussprojektscott.data.MainViewModel
+import com.example.abschlussprojektscott.data.model.Note
 import com.example.abschlussprojektscott.databinding.TaskAddFragmentBinding
 import com.example.abschlussprojektscott.databinding.TaskEditFragmentBinding
 
-class TaskEditFragment: Fragment() {
+class TaskEditFragment : Fragment() {
 
-    private lateinit var binding : TaskEditFragmentBinding
+    private lateinit var binding: TaskEditFragmentBinding
     private val viewModel: MainViewModel by activityViewModels()
 
     private var noteId: Long = 0
@@ -39,6 +40,7 @@ class TaskEditFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.selectedNote.observe(viewLifecycleOwner) {
+            Log.d("TaskEditFragment", "Observed updated notes: $it")
             binding.etTaskTitleEdit.setText(it.noteName)
             binding.etTaskDescriptionEdit.setText(it.noteDescription)
             binding.etTaskDateEdit.setText(it.noteDate)
@@ -48,6 +50,22 @@ class TaskEditFragment: Fragment() {
                 Log.d("TaskEditFragment", "Deleting note with ID: $noteId")
                 viewModel.deleteNoteById(noteId)
                 findNavController().navigate(TaskEditFragmentDirections.actionTaskEditFragmentToToDoFragment())
+            }
+
+            binding.btApply.setOnClickListener {
+                var name = binding.etTaskTitleEdit.text.toString()
+                var date = binding.etTaskDateEdit.text.toString()
+                var time = binding.etTaskTimeEdit.text.toString()
+                var description = binding.etTaskDescriptionEdit.text.toString()
+                var note = Note(
+                    id = noteId,
+                    name = name,
+                    date = date,
+                    time = time,
+                    description = description
+                )
+
+                viewModel.updateNote(note)
             }
         }
     }

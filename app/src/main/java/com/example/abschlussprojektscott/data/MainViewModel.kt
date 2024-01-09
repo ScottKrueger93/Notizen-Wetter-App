@@ -29,6 +29,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun updateNote(note: Note) {
+        viewModelScope.launch {
+            try {
+                val notes = Notes(
+                    id = note.id,
+                    noteName = note.name,
+                    noteDate = note.date,
+                    noteTime = note.time,
+                    noteDescription = note.description,
+
+                    weatherName = weatherData.value?.weather?.first()!!.main,
+                    weatherDescription = weatherData.value?.weather?.first()!!.description,
+                    weatherIcon = weatherData.value?.weather?.first()!!.icon,
+                )
+                repo.insertNote(notes)
+            } catch (e: Exception) {
+                Log.e("MainViewModel-updateNote", "Note could not be updated")
+            }
+        }
+    }
+
     fun getWeatherData() {
         viewModelScope.launch {
             try {

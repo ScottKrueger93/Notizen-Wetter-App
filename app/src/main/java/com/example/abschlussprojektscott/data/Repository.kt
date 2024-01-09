@@ -30,7 +30,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
         try {
             _selectedNote.value = database.noteDao.getSelectedNoteById(id)
         } catch (e: Exception) {
-            Log.e("Repository", e.toString())
+            Log.e("Repository", "Note could not be selected")
         }
     }
 
