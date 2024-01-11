@@ -25,8 +25,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+
+        //Bottom Navigation Bar wird gebindet
         binding.bottomNavigation.setupWithNavController(navHost.navController)
 
+        //Bottom Naviagtion Bar wird ausgeblendet wenn auf bestimmte layouts navigiert wird
         navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.taskDetailFragment -> binding.bottomNavigation.visibility = View.GONE
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Funktion zum zurrück navigieren über die Seite des Telefons wird erstellt
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 binding.fragmentContainerView.findNavController().navigateUp()

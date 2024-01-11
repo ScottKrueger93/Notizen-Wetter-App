@@ -8,6 +8,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.abschlussprojektscott.data.model.Notes
 
+//Datenbank wird erstellt
 @Database(entities = [Notes::class], version = 2)
 abstract class NoteDatabase : RoomDatabase() {
 
