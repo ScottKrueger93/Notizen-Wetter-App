@@ -59,6 +59,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
         }
     }
 
+    //Zum löschen von Notes in der Datenbank
     suspend fun deleteNoteById(noteId: Long) {
         try {
             Log.d("Repository-Delete", "Deleting note with ID: $noteId")
