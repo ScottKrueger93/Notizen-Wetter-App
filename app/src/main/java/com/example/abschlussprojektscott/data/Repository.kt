@@ -51,7 +51,6 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
         }
     }
 
-
     suspend fun insertNote(note: Notes) {
         try {
             database.noteDao.insertNote(note)

@@ -37,6 +37,47 @@ class TaskAddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
+//
+//            override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
+//                // Use the current time as the default values for the picker.
+//                val c = Calendar.getInstance()
+//                val hour = c.get(Calendar.HOUR_OF_DAY)
+//                val minute = c.get(Calendar.MINUTE)
+//
+//                // Create a new instance of TimePickerDialog and return it.
+//                return TimePickerDialog(activity, this, hour, minute, DateFormat.is24HourFormat(activity))
+//            }
+//
+//            override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
+//                // Do something with the time the user picks.
+//            }
+//        }
+
+
+//        class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
+//
+//            override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
+//                // Use the current date as the default date in the picker.
+//                val c = Calendar.getInstance()
+//                val year = c.get(Calendar.YEAR)
+//                val month = c.get(Calendar.MONTH)
+//                val day = c.get(Calendar.DAY_OF_MONTH)
+//
+//                // Create a new instance of DatePickerDialog and return it.
+//                return DatePickerDialog(requireContext(), this, year, month, day)
+//
+//            }
+//
+//            override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
+//                // Do something with the date the user picks.
+//            }
+//
+//        }
+
+
+
+
         viewModel.notes.observe(viewLifecycleOwner) {
             binding.btAddTask.setOnClickListener {
 
