@@ -16,19 +16,23 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
+    //Bezüge zu den jeweiligen Dateien werden erstellt
     private val database = getDatabase(application)
     private val repo = Repository(ScottsApi, database)
-    val selectedNote = repo.selectedNote
 
+    //Bezüge zu den Live-Data werden erstellt
+    val selectedNote = repo.selectedNote
     val notes = repo.notes
     val weatherData = repo.weatherData
 
+    //Coroutine für die Funktion aus dem Repository wird erstellt
     fun getSelectedNoteById(id: Long) {
         viewModelScope.launch {
             repo.getSelectedNoteById(id)
         }
     }
 
+    //Coroutine zur insertNote-Funktion aus dem Repository wird erstellt
     fun updateNote(note: Note) {
         viewModelScope.launch {
             try {

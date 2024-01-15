@@ -13,6 +13,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <View
+            android:id="@+id/deviderItemTaskInclude"
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="130dp"
+            android:layout_marginStart="102dp"
+            android:background="@android:color/darker_gray"
+            android:rotation="90" />
+
         <LinearLayout
             android:id="@+id/lL_item"
             android:layout_width="match_parent"
@@ -23,8 +32,7 @@
                 android:id="@+id/lL_itemleft"
                 android:layout_width="185dp"
                 android:layout_height="260dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="11dp"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical">
 
@@ -119,7 +127,7 @@
 
                 <ImageView
                     android:id="@+id/iv_weatherIcon"
-                    android:layout_width="wrap_content"
+                    android:layout_width="169dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"

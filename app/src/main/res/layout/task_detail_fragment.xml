@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:layout_editor_absoluteX="9dp"
+    tools:layout_editor_absoluteY="-2dp">
 
     <!-- Weitere Details oder Aktionen je nach Bedarf -->
 
@@ -13,30 +15,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="Weather"
         android:text="Rain"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_addWeatherInformation" />
 
     <TextView
         android:id="@+id/tv_weatherDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="Weather Description"
         android:text="Heavy Rain"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_weather" />
 
     <TextView
         android:id="@+id/tv_titleDetail"
@@ -59,69 +61,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="Tasktitle"
         android:text="Tasktitle"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_titleDetail" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_AddTaskTitle" />
 
     <TextView
         android:id="@+id/tv_taskDescription"
         android:layout_width="0dp"
         android:layout_height="192dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="Description"
         android:text="Description"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_taskTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_addTaskDescription" />
 
     <TextView
         android:id="@+id/tv_taskDueDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="Date"
         android:text="Date: 12 December 2023"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_addTimeAndDate" />
 
     <TextView
         android:id="@+id/tv_taskTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="Time"
         android:text="Time: 08:50 pm."
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_taskDueDate" />
 
     <Button
         android:id="@+id/bt_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
+        android:layout_marginTop="13dp"
         android:backgroundTint="#1976D2"
         android:text="Edit Task"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_weatherIcon" />
 
     <ImageView
         android:id="@+id/iv_weatherIcon"
@@ -133,5 +138,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_weatherDescription"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/tv_AddTaskTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Tasktitle"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_taskTitle"
+        app:layout_constraintStart_toStartOf="@+id/tv_taskTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tv_titleDetail" />
+
+    <TextView
+        android:id="@+id/tv_addTaskDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Description"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_taskTitle"
+        app:layout_constraintStart_toStartOf="@+id/tv_taskTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tv_taskTitle" />
+
+    <TextView
+        android:id="@+id/tv_addTimeAndDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Taskdate"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_taskDueDate"
+        app:layout_constraintStart_toStartOf="@+id/tv_taskDueDate"
+        app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
+
+    <TextView
+        android:id="@+id/tv_addWeatherInformation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Weather Information"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_taskTime"
+        app:layout_constraintStart_toStartOf="@+id/tv_taskTime"
+        app:layout_constraintTop_toBottomOf="@+id/tv_taskTime" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

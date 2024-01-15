@@ -11,21 +11,27 @@ import com.example.abschlussprojektscott.data.remote.ScottsApi
 
 class Repository(private val api: ScottsApi, private val database: NoteDatabase) {
 
-    // private val name = "Berlin"
+    //Api-Key
     private val key = "1dd7de79eba41239266b10812486bd02"
+
+    //Längen- und Breitengrade von Berlin
     private val lon: Double = 13.4105
     private val lat: Double = 52.5244
 
+    //Live-Data zum Beobachten aller Wetterdaten des Api-Calls
     private var _weatherData = MutableLiveData<WeatherData>()
     val weatherData: LiveData<WeatherData>
         get() = _weatherData
 
+    //Live-Data zum beobachten aller in der Datenbank eingetragenen Notizen
     var notes: LiveData<MutableList<Notes>> = database.noteDao.getAll()
 
+    //Live-Data zum beobachtenn der ausgewählten Notiz
     private val _selectedNote = MutableLiveData<Notes>()
     val selectedNote: LiveData<Notes>
         get() = _selectedNote
 
+    //Funktion zum Abrufen der aktuellen ID der ausgewählten Notiz
     suspend fun getSelectedNoteById(id: Long) {
         try {
             _selectedNote.value = database.noteDao.getSelectedNoteById(id)
@@ -34,6 +40,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
         }
     }
 
+    //Funktion zum Abrufen aller Wetterdaten aus dem Api-Call
     suspend fun getWeatherData() {
         try {
             val result = api.retrofitService.getWeatherData(lat, lon, key)
@@ -43,6 +50,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
         }
     }
 
+    //Funktion zum Abrufen aller Notizen aus der Datenbank
     fun getNotes() {
         try {
             notes = database.noteDao.getAll() as MutableLiveData<MutableList<Notes>>
@@ -51,6 +59,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
         }
     }
 
+    //Funktion zum einfügen oder ersätzen einer Notiz in der Datenbank
     suspend fun insertNote(note: Notes) {
         try {
             database.noteDao.insertNote(note)
@@ -59,7 +68,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
         }
     }
 
-    //Zum löschen von Notes in der Datenbank
+    //Funktion zum löschen von Notizen in der Datenbank
     suspend fun deleteNoteById(noteId: Long) {
         try {
             Log.d("Repository-Delete", "Deleting note with ID: $noteId")
