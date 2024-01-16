@@ -16,7 +16,6 @@ import com.example.abschlussprojektscott.R
 import com.example.abschlussprojektscott.data.MainViewModel
 import com.example.abschlussprojektscott.data.model.Note
 import com.example.abschlussprojektscott.databinding.TaskAddFragmentBinding
-import java.text.DateFormat
 import java.util.Calendar
 
 class TaskAddFragment : Fragment() {
@@ -37,54 +36,74 @@ class TaskAddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var userTimePicker: String = ""
+        var userDatePicker: String = ""
+
         class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
             override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-                // Use the current time as the default values for the picker.
                 val c = Calendar.getInstance()
                 val hour = c.get(Calendar.HOUR_OF_DAY)
                 val minute = c.get(Calendar.MINUTE)
 
-                // Create a new instance of TimePickerDialog and return it.
-                return TimePickerDialog(activity, this, hour, minute, DateFormat.is24HourFormat(activity))
+                return TimePickerDialog(activity, this, hour, minute,
+                    android.text.format.DateFormat.is24HourFormat(activity)
+                )
             }
 
             override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-                // Do something with the time the user picks.
+                userTimePicker = "$hourOfDay:$minute"
+                binding.etTaskTime.setText(userTimePicker)
             }
         }
-
 
         class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
             override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-                // Use the current date as the default date in the picker.
                 val c = Calendar.getInstance()
                 val year = c.get(Calendar.YEAR)
                 val month = c.get(Calendar.MONTH)
                 val day = c.get(Calendar.DAY_OF_MONTH)
 
-                // Create a new instance of DatePickerDialog and return it.
                 return DatePickerDialog(requireContext(), this, year, month, day)
-
             }
 
             override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-                // Do something with the date the user picks.
+                userDatePicker = "$day.$month.$year"
+                binding.etTaskDate.setText(userDatePicker)
             }
 
         }
 
+        binding.ibAddTime.setOnClickListener {
+            TimePickerFragment().show(childFragmentManager, "timePicker")
+        }
 
-
+        binding.ibAddCalender.setOnClickListener {
+            val newFragment = DatePickerFragment()
+            newFragment.show(childFragmentManager, "datePicker")
+        }
 
         viewModel.notes.observe(viewLifecycleOwner) {
             binding.btAddTask.setOnClickListener {
 
-                var name = binding.etTaskTitle.text.toString()
-                var date = binding.etTaskDate.text.toString()
-                var time = binding.etTaskTime.text.toString()
+                var date: String
+                var time: String
                 var description = binding.etTaskDescription.text.toString()
+                var name = binding.etTaskTitle.text.toString()
+
+                if (binding.etTaskDate.text.isEmpty()){
+                    date = userDatePicker
+                } else {
+                    date = binding.etTaskDate.text.toString()
+                }
+
+                if (binding.etTaskTime.text.isEmpty()){
+                    time = userTimePicker
+                } else {
+                    time = binding.etTaskTime.text.toString()
+                }
+
                 var note = Note(
                     name = name,
                     date = date,
@@ -95,12 +114,11 @@ class TaskAddFragment : Fragment() {
                 viewModel.insertNote(note)
 
                 binding.etTaskTitle.text.clear()
-                binding.etTaskDate.text.clear()
+                binding.etTaskDate.text?.clear()
                 binding.etTaskDescription.text.clear()
-                binding.etTaskTime.text.clear()
+                binding.etTaskTime.text?.clear()
             }
         }
     }
 
 }
-

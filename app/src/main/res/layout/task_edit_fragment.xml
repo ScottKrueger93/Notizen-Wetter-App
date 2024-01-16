@@ -18,6 +18,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_taskDateEdit" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_editTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="#1976D2"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/et_taskTimeEdit"
+        app:layout_constraintTop_toTopOf="@+id/et_taskTimeEdit">
+
+        <ImageButton
+            android:id="@+id/ib_editTime"
+            android:layout_width="38dp"
+            android:layout_height="37dp"
+            android:backgroundTint="#1976D2"
+            app:srcCompat="@android:drawable/ic_menu_recent_history" />
+    </androidx.cardview.widget.CardView>
+
     <Button
         android:id="@+id/bt_deleteTask"
         android:layout_width="wrap_content"
@@ -41,6 +60,25 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_taskDescriptionEdit" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_editCalenderButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="#1976D2"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/et_taskDateEdit"
+        app:layout_constraintTop_toTopOf="@+id/et_taskDateEdit">
+
+        <ImageButton
+            android:id="@+id/ib_editCalender"
+            android:layout_width="38dp"
+            android:layout_height="37dp"
+            android:backgroundTint="#1976D2"
+            app:srcCompat="@android:drawable/ic_menu_month" />
+    </androidx.cardview.widget.CardView>
 
     <EditText
         android:id="@+id/et_taskTitleEdit"

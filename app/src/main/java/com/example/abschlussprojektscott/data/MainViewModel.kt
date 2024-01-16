@@ -32,7 +32,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    //Coroutine zur insertNote-Funktion aus dem Repository wird erstellt
+    //Fügt die Eingaben des Nutzers mit den Daten aus dem API-Call zur Datenbank hinzu und überschreibt einen Vorhandenen Eintrag
     fun updateNote(note: Note) {
         viewModelScope.launch {
             try {
@@ -54,6 +54,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    //Coroutine zur getWeatherData-Funktion aus dem Repository
     fun getWeatherData() {
         viewModelScope.launch {
             try {
@@ -64,16 +65,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    //Coroutine zur getNotes-Funktion aus dem Repository
     fun getNotes() {
         viewModelScope.launch {
             try {
                 repo.getNotes()
             } catch (e: Exception) {
-                Log.e("MainViewModel-getNotes", "could")
+                Log.e("MainViewModel-getNotes", "Notes could not be loaded")
             }
         }
     }
 
+    //
     fun insertNote(note: Note) {
         viewModelScope.launch {
             try {
