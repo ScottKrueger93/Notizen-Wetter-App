@@ -38,6 +38,5 @@ class ToDoAdapter(
         holder.itemView.setOnClickListener {
             it.findNavController().navigate(ToDoFragmentDirections.actionToDoFragmentToTaskDetailFragment(item.id))
         }
-
     }
 }

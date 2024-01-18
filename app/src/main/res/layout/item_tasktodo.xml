@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="201dp">
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_itemToDo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:layout_height="190dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,9 +25,10 @@
 
         <View
             android:id="@+id/divider2"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="1dp"
-            android:layout_marginTop="190dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="102dp"
             android:background="@android:color/darker_gray"
             android:rotation="90" />
 
@@ -118,7 +120,8 @@
                     android:id="@+id/iv_weatherIconToDo"
                     android:layout_width="153dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="34dp"
                     android:layout_marginEnd="32dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_weather"

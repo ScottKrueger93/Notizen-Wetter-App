@@ -17,8 +17,8 @@
             android:id="@+id/deviderItemTaskInclude"
             android:layout_width="200dp"
             android:layout_height="1dp"
+            android:layout_marginStart="99dp"
             android:layout_marginTop="130dp"
-            android:layout_marginStart="102dp"
             android:background="@android:color/darker_gray"
             android:rotation="90" />
 
