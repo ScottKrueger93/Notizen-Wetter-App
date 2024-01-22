@@ -3,12 +3,16 @@ package com.example.abschlussprojektscott.ui
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
+import android.os.Build
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
+import androidx.annotation.RequiresApi
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -33,11 +37,27 @@ class TaskAddFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         var userTimePicker: String = ""
         var userDatePicker: String = ""
+
+        var isTimeFormatAccepted = false
+        var isDateFormatAccepted = false
+
+        fun updateButtonState() {
+            if (!isTimeFormatAccepted || !isDateFormatAccepted) {
+                binding.btAddTask.isEnabled = false
+                binding.btAddTask.alpha = 0.5f
+            } else {
+                binding.btAddTask.isEnabled = true
+                binding.btAddTask.alpha = 1.0f
+            }
+        }
+
+        updateButtonState()
 
         class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
@@ -46,8 +66,9 @@ class TaskAddFragment : Fragment() {
                 val hour = c.get(Calendar.HOUR_OF_DAY)
                 val minute = c.get(Calendar.MINUTE)
 
-                return TimePickerDialog(activity, this, hour, minute,
-                    android.text.format.DateFormat.is24HourFormat(activity)
+                return TimePickerDialog(
+                    activity, this, hour, minute,
+                    DateFormat.is24HourFormat(activity)
                 )
             }
 
@@ -69,20 +90,45 @@ class TaskAddFragment : Fragment() {
             }
 
             override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-                userDatePicker = "$day.$month.$year"
+                userDatePicker = "$day.${month+1}.$year"
                 binding.etTaskDate.setText(userDatePicker)
             }
 
         }
 
         binding.ibAddTime.setOnClickListener {
+            binding.etTaskTime.text?.clear()
             TimePickerFragment().show(childFragmentManager, "timePicker")
         }
 
         binding.ibAddCalender.setOnClickListener {
+            binding.etTaskDate.text?.clear()
             val newFragment = DatePickerFragment()
             newFragment.show(childFragmentManager, "datePicker")
         }
+
+        binding.etTaskTime.addTextChangedListener {
+            var checkTime = viewModel.validateTimeFormat(binding.etTaskTime.text.toString())
+            if (checkTime == "Wrong Input") {
+                binding.etTaskTime.error = checkTime
+                isTimeFormatAccepted = false
+            } else {
+                isTimeFormatAccepted = true
+            }
+            updateButtonState()
+        }
+
+        binding.etTaskDate.addTextChangedListener {
+            var checkDate = viewModel.validateDateFormat(binding.etTaskDate.text.toString())
+            if (checkDate == "Wrong Input") {
+                binding.etTaskDate.error = checkDate
+                isDateFormatAccepted = false
+            } else {
+                isDateFormatAccepted = true
+            }
+            updateButtonState()
+        }
+
 
         viewModel.notes.observe(viewLifecycleOwner) {
             binding.btAddTask.setOnClickListener {
@@ -92,18 +138,18 @@ class TaskAddFragment : Fragment() {
                 var description = binding.etTaskDescription.text.toString()
                 var name = binding.etTaskTitle.text.toString()
 
-                if (binding.etTaskDate.text.isEmpty()){
+                if (binding.etTaskDate.text.isEmpty()) {
                     date = userDatePicker
                 } else {
                     date = binding.etTaskDate.text.toString()
                 }
 
-                if (binding.etTaskTime.text.isEmpty()){
+                if (binding.etTaskTime.text.isEmpty()) {
                     time = userTimePicker
                 } else {
                     time = binding.etTaskTime.text.toString()
                 }
-
+                
                 var note = Note(
                     name = name,
                     date = date,
@@ -122,3 +168,5 @@ class TaskAddFragment : Fragment() {
     }
 
 }
+
+

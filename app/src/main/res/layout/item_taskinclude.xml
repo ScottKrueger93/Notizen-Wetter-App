@@ -53,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Title Placeholder"
+                    android:maxLength="16"
                     app:layout_constraintStart_toStartOf="@+id/tv_taskTitleItem"
                     app:layout_constraintTop_toBottomOf="@+id/tv_taskTitleItem" />
 
@@ -72,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Description Placeholder"
+                    android:maxLength="16"
                     app:layout_constraintStart_toStartOf="@+id/tv_descriptionItem"
                     app:layout_constraintTop_toBottomOf="@+id/tv_descriptionItem" />
 
@@ -91,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Date Placeholder"
+                    android:maxLength="16"
                     app:layout_constraintStart_toStartOf="@+id/tv_DateItem"
                     app:layout_constraintTop_toBottomOf="@+id/tv_DateItem" />
 
@@ -100,6 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Time Placeholder"
+                    android:maxLength="16"
                     app:layout_constraintStart_toStartOf="@+id/tv_DateItem"
                     app:layout_constraintTop_toBottomOf="@+id/tv_DateItem" />
 

@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -50,6 +51,21 @@ class TaskEditFragment : Fragment() {
         var userTimePicker: String = ""
         var userDatePicker: String = ""
 
+        var isTimeFormatAccepted = true
+        var isDateFormatAccepted = true
+
+        fun updateButtonState() {
+            if (!isTimeFormatAccepted || !isDateFormatAccepted) {
+                binding.btApply.isEnabled = false
+                binding.btApply.alpha = 0.5f
+            } else {
+                binding.btApply.isEnabled = true
+                binding.btApply.alpha = 1.0f
+            }
+        }
+
+        updateButtonState()
+
         class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
             override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -80,19 +96,43 @@ class TaskEditFragment : Fragment() {
             }
 
             override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-                userDatePicker = "$day.$month.$year"
+                userDatePicker = "$day.${month+1}.$year"
                 binding.etTaskDateEdit.setText(userDatePicker)
             }
 
         }
 
         binding.ibEditTime.setOnClickListener {
+            binding.etTaskTimeEdit.text?.clear()
             TimePickerFragment().show(childFragmentManager, "timePicker")
         }
 
         binding.ibEditCalender.setOnClickListener {
+            binding.etTaskDateEdit.text?.clear()
             val newFragment = DatePickerFragment()
             newFragment.show(childFragmentManager, "datePicker")
+        }
+
+        binding.etTaskTimeEdit.addTextChangedListener {
+            var checkTime = viewModel.validateTimeFormat(binding.etTaskTimeEdit.text.toString())
+            if (checkTime == "Wrong Input") {
+                binding.etTaskTimeEdit.error = checkTime
+                isTimeFormatAccepted = false
+            } else {
+                isTimeFormatAccepted = true
+            }
+            updateButtonState()
+        }
+
+        binding.etTaskDateEdit.addTextChangedListener {
+            var checkDate = viewModel.validateDateFormat(binding.etTaskDateEdit.text.toString())
+            if (checkDate == "Wrong Input") {
+                binding.etTaskDateEdit.error = checkDate
+                isDateFormatAccepted = false
+            } else {
+                isDateFormatAccepted = true
+            }
+            updateButtonState()
         }
 
         viewModel.selectedNote.observe(viewLifecycleOwner) {

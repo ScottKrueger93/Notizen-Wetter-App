@@ -1,18 +1,22 @@
 package com.example.abschlussprojektscott.data
 
 import android.app.Application
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abschlussprojektscott.data.local.NoteDatabase.Companion.getDatabase
 import com.example.abschlussprojektscott.data.model.Note
 import com.example.abschlussprojektscott.data.model.Notes
-import com.example.abschlussprojektscott.data.model.Weather
-import com.example.abschlussprojektscott.data.model.WeatherData
 import com.example.abschlussprojektscott.data.remote.ScottsApi
 import kotlinx.coroutines.launch
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.util.Locale
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -107,5 +111,79 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun parseDateTime(dateTimeString: String): LocalDateTime {
+        val patterns = arrayOf(
+            "dd.MM.yyyy HH:mm",
+            "dd.MM.yyyy H:mm",
+            "dd.MM.yyyy HH:mm:ss",
+            "dd.MM.yyyy H:mm:ss",
+            "yyyy-MM-dd HH:mm",
+            "yyyy-MM-dd H:mm",
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd H:mm:ss",
+            "MM/dd/yyyy HH:mm",
+            "MM/dd/yyyy H:mm",
+            "MM/dd/yyyy HH:mm:ss",
+            "MM/dd/yyyy H:mm:ss",
+        )
+
+        for (pattern in patterns) {
+            try {
+                return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(pattern))
+            } catch (e: DateTimeParseException) {
+                // Ignorieren und mit dem nächsten Muster versuchen
+            }
+        }
+
+        // Standardwert, wenn keine der Formate passt (könnte eine Ausnahmebehandlung oder ein anderer Standardwert sein)
+        return LocalDateTime.now()
+    }
+
+    fun validateTimeFormat(inputTime: String): String {
+        val validFormats = listOf("HH:mm", "H:mm")
+
+        for (format in validFormats) {
+            val sdf = SimpleDateFormat(format, Locale.getDefault())
+            sdf.isLenient = false // Die Überprüfung ist nicht flexibel
+
+            try {
+                sdf.parse(inputTime)?.let {
+                    // Die Eingabe hat eines der erwarteten Zeitformate
+                    return inputTime
+                }
+            } catch (e: ParseException) {
+                // Ignoriere die Ausnahme und versuche das nächste Format
+            }
+        }
+
+        // Keines der erwarteten Formate wurde gefunden
+        return "Wrong Input"
+    }
+
+    fun validateDateFormat(inputDate: String): String {
+        val validFormats = listOf(
+            "dd.MM.yyyy",
+            "yyyy-MM-dd",
+            "MM/dd/yyyy",
+        )
+
+        for (format in validFormats) {
+            val sdf = SimpleDateFormat(format, Locale.getDefault())
+            sdf.isLenient = false // Die Überprüfung ist nicht flexibel
+
+            try {
+                sdf.parse(inputDate)?.let {
+                    // Die Eingabe hat eines der erwarteten Zeitformate
+                    return inputDate
+                }
+            } catch (e: ParseException) {
+                // Ignoriere die Ausnahme und versuche das nächste Format
+            }
+        }
+
+        // Keines der erwarteten Formate wurde gefunden
+        return "Wrong Input"
+    }
 
 }

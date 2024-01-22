@@ -45,8 +45,8 @@ class HomeFragment : Fragment() {
                 val currentLocalDateTime = LocalDateTime.now()
 
                 var lastTasks =
-                    it.filter { parseDateTime(it.noteDate + " " + it.noteTime) <= currentLocalDateTime }
-                        .sortedBy { parseDateTime(it.noteDate + " " + it.noteTime) }
+                    it.filter { viewModel.parseDateTime(it.noteDate + " " + it.noteTime) <= currentLocalDateTime }
+                        .sortedBy { viewModel.parseDateTime(it.noteDate + " " + it.noteTime) }
 
 
                 if (lastTasks.isNotEmpty()) {
@@ -64,8 +64,8 @@ class HomeFragment : Fragment() {
                 }
 
                 var nextTask =
-                    it.filter { parseDateTime(it.noteDate + " " + it.noteTime) > currentLocalDateTime }
-                        .sortedBy { parseDateTime(it.noteDate + " " + it.noteTime) }
+                    it.filter { viewModel.parseDateTime(it.noteDate + " " + it.noteTime) > currentLocalDateTime }
+                        .sortedBy { viewModel.parseDateTime(it.noteDate + " " + it.noteTime) }
 
                 if (nextTask.isNotEmpty()) {
                     binding.includeNewestTask.tvTitlePlaceHolder.text = nextTask[0].noteName
@@ -80,36 +80,9 @@ class HomeFragment : Fragment() {
                 } else {
                     binding.includeNewestTask.cvItem.visibility = View.GONE
                 }
+
             }
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun parseDateTime(dateTimeString: String): LocalDateTime {
-        val patterns = arrayOf(
-            "dd.MM.yyyy HH:mm",
-            "dd.MM.yyyy H:mm",
-            "dd.MM.yyyy HH:mm:ss",
-            "dd.MM.yyyy H:mm:ss",
-            "yyyy-MM-dd HH:mm",
-            "yyyy-MM-dd H:mm",
-            "yyyy-MM-dd HH:mm:ss",
-            "yyyy-MM-dd H:mm:ss",
-            "MM/dd/yyyy HH:mm",
-            "MM/dd/yyyy H:mm",
-            "MM/dd/yyyy HH:mm:ss",
-            "MM/dd/yyyy H:mm:ss",
-        )
-
-        for (pattern in patterns) {
-            try {
-                return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(pattern))
-            } catch (e: DateTimeParseException) {
-                // Ignorieren und mit dem nächsten Muster versuchen
-            }
-        }
-
-        // Standardwert, wenn keine der Formate passt (könnte eine Ausnahmebehandlung oder ein anderer Standardwert sein)
-        return LocalDateTime.now()
-    }
 }
