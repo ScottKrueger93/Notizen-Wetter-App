@@ -27,7 +27,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     //Bezüge zu den Live-Data werden erstellt
     val selectedNote = repo.selectedNote
     val notes = repo.notes
-    val weatherData = repo.weatherData
+    private val weatherData = repo.weatherData
 
     //Coroutine für die Funktion aus dem Repository wird erstellt
     fun getSelectedNoteById(id: Long) {
@@ -59,10 +59,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     //Coroutine zur getWeatherData-Funktion aus dem Repository
-    fun getWeatherData() {
+    fun getWeatherData(lati:Double, loni: Double) {
         viewModelScope.launch {
             try {
-                repo.getWeatherData()
+                repo.getWeatherData(lati, loni)
             } catch (e: Exception) {
                 Log.e("MainViewModel-getWeatherData", "could not load WeatherData")
             }

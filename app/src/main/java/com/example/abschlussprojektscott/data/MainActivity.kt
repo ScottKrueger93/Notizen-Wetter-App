@@ -1,9 +1,14 @@
 package com.example.abschlussprojektscott.data
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -15,17 +20,28 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            Boolean
+            if (isGranted) {
+                Log.i("PERMISSION", "GRANTED")
+            } else {
+                Log.i("PERMISSION", "GRANTED")
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //ändert die Farbe der StatusBar auf Schwarz
-        window.statusBarColor = ContextCompat.getColor(this,R.color.black)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //navHost wird angelegt
-        val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
 
         //Bottom Navigation Bar wird gebindet
         binding.bottomNavigation.setupWithNavController(navHost.navController)
@@ -46,5 +62,30 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        checkLocationPermission()
+
+    }
+
+    fun checkLocationPermission(): Boolean {
+        return when {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                return true
+            }
+
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) -> {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                return false
+            }
+            else -> {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                return false
+            }
+        }
     }
 }

@@ -2,7 +2,6 @@ package com.example.abschlussprojektscott.ui
 
 import android.os.Build
 import android.os.Bundle
-import android.text.method.TextKeyListener.clear
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +14,6 @@ import com.example.abschlussprojektscott.data.remote.IMAGE_BASE_URL
 import com.example.abschlussprojektscott.data.remote.IMG_URL_LAST
 import com.example.abschlussprojektscott.databinding.HomeFragmentBinding
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
-import java.util.Calendar
-import java.util.Date
 
 class HomeFragment : Fragment() {
 
@@ -32,7 +27,6 @@ class HomeFragment : Fragment() {
     ): View {
         binding = HomeFragmentBinding.inflate(layoutInflater)
         viewModel.getNotes()
-        viewModel.getWeatherData()
         return binding.root
     }
 
@@ -44,7 +38,7 @@ class HomeFragment : Fragment() {
             notes?.let {
                 val currentLocalDateTime = LocalDateTime.now()
 
-                var lastTasks =
+                val lastTasks =
                     it.filter { viewModel.parseDateTime(it.noteDate + " " + it.noteTime) <= currentLocalDateTime }
                         .sortedBy { viewModel.parseDateTime(it.noteDate + " " + it.noteTime) }
 
@@ -63,7 +57,7 @@ class HomeFragment : Fragment() {
                     binding.includeLastTask.cvItem.visibility = View.GONE
                 }
 
-                var nextTask =
+                val nextTask =
                     it.filter { viewModel.parseDateTime(it.noteDate + " " + it.noteTime) > currentLocalDateTime }
                         .sortedBy { viewModel.parseDateTime(it.noteDate + " " + it.noteTime) }
 

@@ -18,7 +18,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussprojektscott.data.MainViewModel
 import com.example.abschlussprojektscott.data.model.Note
-import com.example.abschlussprojektscott.databinding.TaskAddFragmentBinding
 import com.example.abschlussprojektscott.databinding.TaskEditFragmentBinding
 import java.util.Calendar
 
@@ -40,7 +39,6 @@ class TaskEditFragment : Fragment() {
             Log.d("TaskEditFragment", "Received noteId: $noteId")
         }
         binding = TaskEditFragmentBinding.inflate(layoutInflater)
-        viewModel.getWeatherData()
         viewModel.getNotes()
         return binding.root
     }
@@ -48,8 +46,8 @@ class TaskEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var userTimePicker: String = ""
-        var userDatePicker: String = ""
+        var userTimePicker = ""
+        var userDatePicker = ""
 
         var isTimeFormatAccepted = true
         var isDateFormatAccepted = true
@@ -114,7 +112,7 @@ class TaskEditFragment : Fragment() {
         }
 
         binding.etTaskTimeEdit.addTextChangedListener {
-            var checkTime = viewModel.validateTimeFormat(binding.etTaskTimeEdit.text.toString())
+            val checkTime = viewModel.validateTimeFormat(binding.etTaskTimeEdit.text.toString())
             if (checkTime == "Wrong Input") {
                 binding.etTaskTimeEdit.error = checkTime
                 isTimeFormatAccepted = false
@@ -125,7 +123,7 @@ class TaskEditFragment : Fragment() {
         }
 
         binding.etTaskDateEdit.addTextChangedListener {
-            var checkDate = viewModel.validateDateFormat(binding.etTaskDateEdit.text.toString())
+            val checkDate = viewModel.validateDateFormat(binding.etTaskDateEdit.text.toString())
             if (checkDate == "Wrong Input") {
                 binding.etTaskDateEdit.error = checkDate
                 isDateFormatAccepted = false
@@ -150,24 +148,22 @@ class TaskEditFragment : Fragment() {
 
             binding.btApply.setOnClickListener {
 
-                var date: String
-                var time: String
-                var description = binding.etTaskDescriptionEdit.text.toString()
-                var name = binding.etTaskTitleEdit.text.toString()
+                val description = binding.etTaskDescriptionEdit.text.toString()
+                val name = binding.etTaskTitleEdit.text.toString()
 
-                if (binding.etTaskDateEdit.text.isEmpty()){
-                    date = userDatePicker
+                val date: String = if (binding.etTaskDateEdit.text.isEmpty()){
+                    userDatePicker
                 } else {
-                    date = binding.etTaskDateEdit.text.toString()
+                    binding.etTaskDateEdit.text.toString()
                 }
 
-                if (binding.etTaskTimeEdit.text.isEmpty()){
-                    time = userTimePicker
+                val time: String = if (binding.etTaskTimeEdit.text.isEmpty()){
+                    userTimePicker
                 } else {
-                    time = binding.etTaskTimeEdit.text.toString()
+                    binding.etTaskTimeEdit.text.toString()
                 }
 
-                var note = Note(
+                val note = Note(
                     id = noteId,
                     name = name,
                     date = date,

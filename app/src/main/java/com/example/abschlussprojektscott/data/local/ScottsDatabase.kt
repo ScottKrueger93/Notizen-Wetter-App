@@ -19,7 +19,7 @@ abstract class NoteDatabase : RoomDatabase() {
 
         // Migration von Version 1 auf Version 2
         private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
+            override fun migrate(db: SupportSQLiteDatabase) {
                 // Hier können SQL-Anweisungen für die Migration eingefügt werden, falls erforderlich.
             }
         }

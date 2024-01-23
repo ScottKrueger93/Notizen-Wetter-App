@@ -11,7 +11,6 @@ import coil.load
 import com.example.abschlussprojektscott.data.MainViewModel
 import com.example.abschlussprojektscott.data.remote.IMAGE_BASE_URL
 import com.example.abschlussprojektscott.data.remote.IMG_URL_LAST
-import com.example.abschlussprojektscott.databinding.TaskAddFragmentBinding
 import com.example.abschlussprojektscott.databinding.TaskDetailFragmentBinding
 
 class TaskDetailFragment : Fragment() {
@@ -31,7 +30,6 @@ class TaskDetailFragment : Fragment() {
             notesId = args.notesId
         }
         binding = TaskDetailFragmentBinding.inflate(layoutInflater)
-        viewModel.getWeatherData()
         viewModel.getNotes()
         return binding.root
     }

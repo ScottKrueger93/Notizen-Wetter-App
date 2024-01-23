@@ -44,6 +44,7 @@ android {
 
 dependencies {
 
+    implementation("com.google.android.gms:play-services-location:21.1.0")
     val retrofitVersion = "2.9.0"
     val roomVersion = "2.6.0"
 

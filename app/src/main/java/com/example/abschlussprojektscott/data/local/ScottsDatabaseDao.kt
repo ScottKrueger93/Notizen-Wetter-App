@@ -1,13 +1,10 @@
 package com.example.abschlussprojektscott.data.local
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.example.abschlussprojektscott.data.model.Notes
 
 @Dao
@@ -25,7 +22,7 @@ interface ScottsDatabaseDao {
     @Query("DELETE FROM note_table WHERE id = :noteId")
     suspend fun deleteNoteById(noteId: Long)
 
-    //Funktion um die ID der ausgewählten Funktion zu bekommen
+    //Funktion um die ID der angeklickten Notiz zu bekommen
     @Query("SELECT * FROM note_table WHERE id = :id")
     suspend fun getSelectedNoteById(id: Long): Notes
 

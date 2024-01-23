@@ -3,9 +3,11 @@ package com.example.abschlussprojektscott.ui
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
+import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,15 +18,19 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.abschlussprojektscott.R
+import com.example.abschlussprojektscott.data.MainActivity
 import com.example.abschlussprojektscott.data.MainViewModel
 import com.example.abschlussprojektscott.data.model.Note
 import com.example.abschlussprojektscott.databinding.TaskAddFragmentBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import java.util.Calendar
 
 class TaskAddFragment : Fragment() {
 
     private lateinit var binding: TaskAddFragmentBinding
+    private lateinit var activity: MainActivity
+    private lateinit var locationService: FusedLocationProviderClient
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -33,7 +39,8 @@ class TaskAddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = TaskAddFragmentBinding.inflate(layoutInflater)
-        viewModel.getWeatherData()
+        activity = requireActivity() as MainActivity
+        locationService = LocationServices.getFusedLocationProviderClient(requireActivity())
         return binding.root
     }
 
@@ -41,8 +48,8 @@ class TaskAddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var userTimePicker: String = ""
-        var userDatePicker: String = ""
+        var userTimePicker = ""
+        var userDatePicker = ""
 
         var isTimeFormatAccepted = false
         var isDateFormatAccepted = false
@@ -90,7 +97,7 @@ class TaskAddFragment : Fragment() {
             }
 
             override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-                userDatePicker = "$day.${month+1}.$year"
+                userDatePicker = "$day.${month + 1}.$year"
                 binding.etTaskDate.setText(userDatePicker)
             }
 
@@ -108,7 +115,7 @@ class TaskAddFragment : Fragment() {
         }
 
         binding.etTaskTime.addTextChangedListener {
-            var checkTime = viewModel.validateTimeFormat(binding.etTaskTime.text.toString())
+            val checkTime = viewModel.validateTimeFormat(binding.etTaskTime.text.toString())
             if (checkTime == "Wrong Input") {
                 binding.etTaskTime.error = checkTime
                 isTimeFormatAccepted = false
@@ -119,7 +126,7 @@ class TaskAddFragment : Fragment() {
         }
 
         binding.etTaskDate.addTextChangedListener {
-            var checkDate = viewModel.validateDateFormat(binding.etTaskDate.text.toString())
+            val checkDate = viewModel.validateDateFormat(binding.etTaskDate.text.toString())
             if (checkDate == "Wrong Input") {
                 binding.etTaskDate.error = checkDate
                 isDateFormatAccepted = false
@@ -133,24 +140,32 @@ class TaskAddFragment : Fragment() {
         viewModel.notes.observe(viewLifecycleOwner) {
             binding.btAddTask.setOnClickListener {
 
-                var date: String
-                var time: String
-                var description = binding.etTaskDescription.text.toString()
-                var name = binding.etTaskTitle.text.toString()
+                if (activity.checkLocationPermission()) {
+                    locationService.lastLocation.addOnSuccessListener { location: Location ->
+                        viewModel.getWeatherData(location.latitude, location.longitude)
+                        Log.e("LOCATION", "${location.latitude} ${location.longitude}")
 
-                if (binding.etTaskDate.text.isEmpty()) {
-                    date = userDatePicker
+                    }
                 } else {
-                    date = binding.etTaskDate.text.toString()
+                    Log.e("PERMISSION", "DENIED")
                 }
 
-                if (binding.etTaskTime.text.isEmpty()) {
-                    time = userTimePicker
+                val description = binding.etTaskDescription.text.toString()
+                val name = binding.etTaskTitle.text.toString()
+
+                val date: String = if (binding.etTaskDate.text.isEmpty()) {
+                    userDatePicker
                 } else {
-                    time = binding.etTaskTime.text.toString()
+                    binding.etTaskDate.text.toString()
                 }
-                
-                var note = Note(
+
+                val time: String = if (binding.etTaskTime.text.isEmpty()) {
+                    userTimePicker
+                } else {
+                    binding.etTaskTime.text.toString()
+                }
+
+                val note = Note(
                     name = name,
                     date = date,
                     time = time,
