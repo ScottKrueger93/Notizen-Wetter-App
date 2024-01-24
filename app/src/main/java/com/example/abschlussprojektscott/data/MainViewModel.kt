@@ -36,6 +36,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    var currentId = 0L
+
     //Fügt die Eingaben des Nutzers mit den Daten aus dem API-Call zur Datenbank hinzu und überschreibt einen Vorhandenen Eintrag
     fun updateNote(note: Note) {
         viewModelScope.launch {

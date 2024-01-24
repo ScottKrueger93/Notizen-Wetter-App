@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.example.abschlussprojektscott.R
 import com.example.abschlussprojektscott.data.MainViewModel
 import com.example.abschlussprojektscott.data.remote.IMAGE_BASE_URL
 import com.example.abschlussprojektscott.data.remote.IMG_URL_LAST
@@ -18,17 +19,11 @@ class TaskDetailFragment : Fragment() {
     private lateinit var binding: TaskDetailFragmentBinding
     private val viewModel: MainViewModel by activityViewModels()
 
-    private var notesId: Long = 0
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        arguments?.let { bundle ->
-            val args = TaskDetailFragmentArgs.fromBundle(bundle)
-            notesId = args.notesId
-        }
         binding = TaskDetailFragmentBinding.inflate(layoutInflater)
         viewModel.getNotes()
         return binding.root
@@ -37,7 +32,7 @@ class TaskDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getSelectedNoteById(notesId)
+        viewModel.getSelectedNoteById(viewModel.currentId)
 
         viewModel.selectedNote.observe(viewLifecycleOwner) {
             if (it != null) {
@@ -52,11 +47,7 @@ class TaskDetailFragment : Fragment() {
         }
 
         binding.btEdit.setOnClickListener {
-            findNavController().navigate(
-                TaskDetailFragmentDirections.actionTaskDetailFragmentToTaskEditFragment(
-                    notesId
-                )
-            )
+            findNavController().navigate(R.id.taskEditFragment)
         }
 
     }

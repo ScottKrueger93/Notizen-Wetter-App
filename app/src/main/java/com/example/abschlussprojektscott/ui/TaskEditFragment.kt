@@ -26,18 +26,11 @@ class TaskEditFragment : Fragment() {
     private lateinit var binding: TaskEditFragmentBinding
     private val viewModel: MainViewModel by activityViewModels()
 
-    private var noteId: Long = 0
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        arguments?.let { bundle ->
-            val args = TaskEditFragmentArgs.fromBundle(bundle)
-            noteId = args.detailNoteId
-            Log.d("TaskEditFragment", "Received noteId: $noteId")
-        }
         binding = TaskEditFragmentBinding.inflate(layoutInflater)
         viewModel.getNotes()
         return binding.root
@@ -141,8 +134,8 @@ class TaskEditFragment : Fragment() {
             binding.etTaskTimeEdit.setText(it.noteTime)
 
             binding.btDeleteTask.setOnClickListener {
-                Log.d("TaskEditFragment", "Deleting note with ID: $noteId")
-                viewModel.deleteNoteById(noteId)
+                Log.d("TaskEditFragment", "Deleting note with ID: ${viewModel.currentId}")
+                viewModel.deleteNoteById(viewModel.currentId)
                 findNavController().navigate(TaskEditFragmentDirections.actionTaskEditFragmentToToDoFragment())
             }
 
@@ -164,7 +157,7 @@ class TaskEditFragment : Fragment() {
                 }
 
                 val note = Note(
-                    id = noteId,
+                    id = viewModel.currentId,
                     name = name,
                     date = date,
                     time = time,

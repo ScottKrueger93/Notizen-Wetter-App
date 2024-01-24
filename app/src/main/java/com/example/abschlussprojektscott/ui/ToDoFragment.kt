@@ -31,7 +31,7 @@ class ToDoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.notes.observe(viewLifecycleOwner) { notes ->
-            binding.rvTodo.adapter = ToDoAdapter(notes)
+            binding.rvTodo.adapter = ToDoAdapter(notes, viewModel)
 
             binding.btSortButton.setOnClickListener {
                 viewModel.notes.value?.let { currentNotes ->
@@ -54,7 +54,7 @@ class ToDoFragment : Fragment() {
                     }
 
                     isDescendingOrder = !isDescendingOrder
-                    binding.rvTodo.adapter = ToDoAdapter(sortedNotes)
+                    binding.rvTodo.adapter = ToDoAdapter(sortedNotes, viewModel)
                 }
             }
         }
