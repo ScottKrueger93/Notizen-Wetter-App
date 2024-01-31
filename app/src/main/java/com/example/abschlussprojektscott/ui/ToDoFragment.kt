@@ -52,7 +52,6 @@ class ToDoFragment : Fragment() {
                             }
                         )
                     }
-
                     isDescendingOrder = !isDescendingOrder
                     binding.rvTodo.adapter = ToDoAdapter(sortedNotes, viewModel)
                 }
