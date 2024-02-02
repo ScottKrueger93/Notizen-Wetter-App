@@ -48,7 +48,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
     suspend fun getWeatherData(lati: Double, loni: Double) {
         try {
             val result = api.retrofitService.getWeatherData(lati, loni, key)
-            _weatherData.postValue(result)
+            _weatherData.value = result
         } catch (e: Exception) {
             Log.e("Repository-getWeatherData", "Api could not be loaded")
         }
@@ -57,7 +57,7 @@ class Repository(private val api: ScottsApi, private val database: NoteDatabase)
     //Funktion zum Abrufen aller Notizen aus der Datenbank
     fun getNotes() {
         try {
-            notes = database.noteDao.getAll() as MutableLiveData<MutableList<Notes>>
+            notes = database.noteDao.getAll()
         } catch (e: Exception) {
             Log.e("Repository-getNotes", "Notes could not be loaded")
         }

@@ -145,39 +145,39 @@ class TaskAddFragment : Fragment() {
                         viewModel.getWeatherData(location.latitude, location.longitude)
                         Log.e("LOCATION", "${location.latitude} ${location.longitude}")
 
+
+                        val description = binding.etTaskDescription.text.toString()
+                        val name = binding.etTaskTitle.text.toString()
+
+                        val date: String = if (binding.etTaskDate.text.isEmpty()) {
+                            userDatePicker
+                        } else {
+                            binding.etTaskDate.text.toString()
+                        }
+
+                        val time: String = if (binding.etTaskTime.text.isEmpty()) {
+                            userTimePicker
+                        } else {
+                            binding.etTaskTime.text.toString()
+                        }
+
+                        val note = Note(
+                            name = name,
+                            date = date,
+                            time = time,
+                            description = description
+                        )
+
+                        viewModel.insertNote(note, location)
+
+                        binding.etTaskTitle.text.clear()
+                        binding.etTaskDate.text?.clear()
+                        binding.etTaskDescription.text.clear()
+                        binding.etTaskTime.text?.clear()
                     }
                 } else {
                     Log.e("PERMISSION", "DENIED")
                 }
-
-                val description = binding.etTaskDescription.text.toString()
-                val name = binding.etTaskTitle.text.toString()
-
-                val date: String = if (binding.etTaskDate.text.isEmpty()) {
-                    userDatePicker
-                } else {
-                    binding.etTaskDate.text.toString()
-                }
-
-                val time: String = if (binding.etTaskTime.text.isEmpty()) {
-                    userTimePicker
-                } else {
-                    binding.etTaskTime.text.toString()
-                }
-
-                val note = Note(
-                    name = name,
-                    date = date,
-                    time = time,
-                    description = description
-                )
-
-                viewModel.insertNote(note)
-
-                binding.etTaskTitle.text.clear()
-                binding.etTaskDate.text?.clear()
-                binding.etTaskDescription.text.clear()
-                binding.etTaskTime.text?.clear()
             }
         }
     }

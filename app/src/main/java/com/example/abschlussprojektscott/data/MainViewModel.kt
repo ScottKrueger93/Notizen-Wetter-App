@@ -1,6 +1,7 @@
 package com.example.abschlussprojektscott.data
 
 import android.app.Application
+import android.location.Location
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -83,23 +84,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     //
-    fun insertNote(note: Note) {
+    fun insertNote(note: Note, location: Location) {
         viewModelScope.launch {
-            try {
+
+            repo.getWeatherData(location.latitude, location.longitude)
+
                 val notes = Notes(
                     noteName = note.name,
                     noteDate = note.date,
                     noteTime = note.time,
                     noteDescription = note.description,
 
-                    weatherName = weatherData.value?.weather?.first()!!.main,
-                    weatherDescription = weatherData.value?.weather?.first()!!.description,
-                    weatherIcon = weatherData.value?.weather?.first()!!.icon,
+                    weatherName = weatherData.value?.weather?.first()?.main.toString(),
+                    weatherDescription = weatherData.value?.weather?.first()?.description.toString(),
+                    weatherIcon = weatherData.value?.weather?.first()?.icon.toString(),
                 )
                 repo.insertNote(notes)
-            } catch (e: Exception) {
-                Log.e("MainViewModel-insertNote", "Note could not be added")
-            }
         }
     }
 

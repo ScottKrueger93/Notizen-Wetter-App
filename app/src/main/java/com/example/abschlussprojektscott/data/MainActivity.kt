@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun checkLocationPermission(): Boolean {
-        return when {
+        when {
             ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                 requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 return false
             }
+
             else -> {
                 requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 return false
